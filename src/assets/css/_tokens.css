@@ -1,7 +1,7 @@
 /*
  * Design tokens.
  * Everything visual that will change with the brand lives here.
- * Values below are neutral PLACEHOLDERS — swap in brand colors & fonts in Phase 2.
+ * Fonts are still system-font PLACEHOLDERS — swap in brand fonts in Phase 2.
  *
  * Tier 1 (--palette-*): raw values. Tier 2 (--color-*, --font-*, --step-*,
  * --space-*): semantic names the rest of the CSS uses. Components should
@@ -9,30 +9,39 @@
  */
 :root {
 	/* Page supports both schemes; follows the visitor's OS setting.
+	 * Light = Deep Mocha on Almond Silk; dark = the same pair inverted.
 	 * To ship light-only, change this to `light` (and the meta tag in base.njk). */
 	color-scheme: light dark;
 
-	/* ---- Tier 1: palette (placeholders) ---- */
-	--palette-neutral-0: oklch(100% 0 0);
-	--palette-neutral-50: oklch(97.5% 0.004 85);
-	--palette-neutral-200: oklch(89% 0.006 85);
-	--palette-neutral-400: oklch(70% 0.008 85);
-	--palette-neutral-600: oklch(46% 0.01 85);
-	--palette-neutral-800: oklch(30% 0.01 85);
-	--palette-neutral-900: oklch(22% 0.01 85);
-	--palette-neutral-950: oklch(16% 0.008 85);
-	--palette-accent-600: oklch(48% 0.15 262);
-	--palette-accent-300: oklch(80% 0.09 262);
+	/* ---- Tier 1: brand palette (OKLCH, converted from the brand hex values) ---- */
+	--palette-almond-silk: oklch(87.55% 0.0366 43.81); /* #ECCFC3 */
+	--palette-deep-mocha: oklch(37.23% 0.0435 44.87); /* #54392D */
+	--palette-muted-teal: oklch(67.62% 0.0475 142.03); /* #879F84 */
+	--palette-burnt-tangerine: oklch(61.99% 0.2142 30.64); /* #EB3C27 */
+
+	/*
+	 * Contrast (WCAG 2.2) — the only text-safe pair is Mocha + Almond (7.14:1).
+	 *   Mocha / Teal 3.66 → large text or UI only
+	 *   Almond / Tangerine 2.74, Mocha / Tangerine 2.60, Almond / Teal 1.95 → decorative only
+	 * So Tangerine and Teal are used for accents that carry no information
+	 * on their own (hover underlines, dividers, list markers, arrows).
+	 */
 
 	/* ---- Tier 2: semantic colors ---- */
-	--color-bg: light-dark(var(--palette-neutral-50), var(--palette-neutral-950));
-	--color-surface: light-dark(var(--palette-neutral-0), var(--palette-neutral-900));
-	--color-text: light-dark(var(--palette-neutral-900), var(--palette-neutral-50));
-	--color-text-muted: light-dark(var(--palette-neutral-600), var(--palette-neutral-400));
-	--color-border: light-dark(var(--palette-neutral-200), var(--palette-neutral-800));
-	--color-accent: light-dark(var(--palette-accent-600), var(--palette-accent-300));
-	--color-link: var(--color-accent);
-	--color-focus: var(--color-accent);
+	--color-bg: light-dark(var(--palette-almond-silk), var(--palette-deep-mocha));
+	--color-text: light-dark(var(--palette-deep-mocha), var(--palette-almond-silk));
+	/* 5.19:1 (light) and 5.09:1 (dark) against --color-bg */
+	--color-text-muted: light-dark(
+		color-mix(in oklab, var(--palette-deep-mocha) 85%, var(--palette-almond-silk)),
+		color-mix(in oklab, var(--palette-almond-silk) 80%, var(--palette-deep-mocha))
+	);
+	--color-border: var(--palette-muted-teal); /* decorative dividers only */
+	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
+	/* Links are identified by underline, so they can share the text color. */
+	--color-link: var(--color-text);
+	--color-link-decoration-hover: var(--color-accent);
+	/* Focus rings need 3:1 against the background; Tangerine doesn't reach it. */
+	--color-focus: var(--color-text);
 
 	/* ---- Typography ---- */
 	--font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

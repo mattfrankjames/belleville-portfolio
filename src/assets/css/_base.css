@@ -57,8 +57,13 @@ a {
 	text-underline-offset: 0.18em;
 
 	&:hover {
+		text-decoration-color: var(--color-link-decoration-hover);
 		text-decoration-thickness: 0.14em;
 	}
+}
+
+::marker {
+	color: var(--color-accent);
 }
 
 :focus-visible {
@@ -72,8 +77,9 @@ main:focus {
 	outline: none;
 }
 
+/* Inverted brand pair keeps selected text at 7:1 */
 ::selection {
-	background-color: var(--color-accent);
+	background-color: var(--color-text);
 	color: var(--color-bg);
 }
 
