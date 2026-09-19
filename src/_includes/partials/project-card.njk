@@ -13,7 +13,7 @@
 	<p class="card-summary">{{ project.data.summary }}</p>
 	{%- endif %}
 	{%- if project.data.cover and project.data.cover.src %}
-	<img class="card-image" eleventy:pictureattr:class="card-media" src="{{ project.data.cover.src }}" alt="" sizes="(min-width: 76rem) 35rem, (min-width: 62rem) 50vw, calc(100vw - 2rem)">
+	<img class="card-image" src="{{ project.data.cover.src }}" alt="" sizes="(min-width: 76rem) 35rem, (min-width: 62rem) 50vw, calc(100vw - 2rem)">
 	{%- endif %}
 </article>
 {%- endmacro -%}

@@ -54,6 +54,9 @@ export default function (eleventyConfig) {
 	/* ---------------------------------------------------------------
 	 * Static files
 	 * ------------------------------------------------------------- */
+	// Animated media is served as-is; the image pipeline is for stills.
+	eleventyConfig.addPassthroughCopy("src/assets/media");
+
 	// Brand fonts from npm (Fontsource): Latin + Latin Extended subsets only.
 	eleventyConfig.addPassthroughCopy({
 		"node_modules/@fontsource/boldonse/files/boldonse-latin{,-ext}-400-normal.woff2": "assets/fonts",
