@@ -38,7 +38,7 @@ src/
   assets/
     css/main.css       Entry point; imports the _partials in cascade-layer order
     css/_tokens.css    Colors, fonts, type scale, spacing  ← brand lives here
-    fonts/             Self-hosted .woff2 files (Phase 2)
+    css/_fonts.css     @font-face rules for the self-hosted brand fonts
     images/            Source images (processed automatically at build)
   work/*.md            One file per project
   index.md             Home page
@@ -76,6 +76,7 @@ The body is Markdown. Images written as `![alt text](/assets/images/…)` are op
 - **CSS**: Lightning CSS bundles `main.css` and its `_*.css` partials into one minified file. It also lowers modern syntax for the targets in `package.json` → `browserslist` (Baseline widely available). Styles use cascade layers: `reset → tokens → base → layout → components → utilities`.
 - **Images**: every `<img>` in the built HTML becomes a `<picture>` with AVIF and WebP at 480/800/1200/1600px, with `width`/`height` set to prevent layout shift. Images are lazy-loaded by default. The project cover loads eagerly with `fetchpriority="high"` because it's the likely LCP element. Don't put a `width` attribute on `<img>` in templates: the plugin treats it as the only output size.
 - **Color**: the brand palette (Almond Silk, Deep Mocha, Muted Teal, Burnt Tangerine) is defined in `oklch()` in `_tokens.css`. Only Mocha on Almond is safe for text (7.14:1). Tangerine and Teal fail text contrast against both, so they are used only for decoration: hover underlines, dividers, list markers and arrows. They never carry text or state on their own. Muted text is a `color-mix()` of the two text-safe colors, tuned to stay above 5:1.
+- **Fonts**: Boldonse (display: `h1`, `h2`, site name) and Inter (variable weight and optical size, everything else) are self-hosted. There are no Google Fonts requests, so pages are faster, visitor IPs aren't shared, and the CSP stays same-origin. The `.woff2` files come from the `@fontsource/boldonse` and `@fontsource-variable/inter` npm packages and are copied to `/assets/fonts/` at build; update them with npm. Only Latin and Latin Extended subsets ship, and the two Latin files used above the fold are preloaded. Boldonse has a single weight, so display text uses `font-synthesis: none`. It is wide and tall, so display headings use `--leading-display` and `hyphens: auto`.
 - **Theming**: colors use `light-dark()`, so the site follows the visitor's light or dark OS setting. Light mode is Mocha on Almond; dark mode swaps the pair. To ship light-only, set `color-scheme: light` in `_tokens.css` and in the `<meta name="color-scheme">` tag in `base.njk`.
 - **Motion**: page-to-page cross-fades use cross-document View Transitions. They only run when the visitor hasn't asked for reduced motion; other browsers navigate normally.
 - **SEO**: canonical URLs, Open Graph tags, `sitemap.xml` and `robots.txt`. Pages are marked `noindex` unless Netlify's `CONTEXT` is `production`, so deploy previews stay out of search results.
@@ -99,6 +100,6 @@ Target Baseline **widely available** features. Newer features (View Transitions,
 ## Roadmap
 
 1. ~~Structure~~ ✅
-2. Brand: colors, fonts, real content
+2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, real content
 3. QA and launch: pa11y-ci and Lighthouse checks, OG image, image build cache, Netlify deploy
 4. CMS (stretch): Sveltia/Decap or Pages CMS at `/admin`, editing `src/work/*.md`, the page files and `src/_data/site.json`

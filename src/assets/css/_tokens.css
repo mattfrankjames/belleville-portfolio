@@ -1,7 +1,6 @@
 /*
  * Design tokens.
  * Everything visual that will change with the brand lives here.
- * Fonts are still system-font PLACEHOLDERS — swap in brand fonts in Phase 2.
  *
  * Tier 1 (--palette-*): raw values. Tier 2 (--color-*, --font-*, --step-*,
  * --space-*): semantic names the rest of the CSS uses. Components should
@@ -44,12 +43,16 @@
 	--color-focus: var(--color-text);
 
 	/* ---- Typography ---- */
-	--font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-	--font-heading: var(--font-body);
+	/* Boldonse: wide display face for h1, h2 and the site name (one weight only).
+	 * Inter: everything else. Fallbacks are sized to match via font-size-adjust. */
+	--font-display: "Boldonse", system-ui, sans-serif;
+	--font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--weight-display: 400;
 	--weight-body: 400;
-	--weight-heading: 650;
+	--weight-strong: 600;
 	--leading-body: 1.6;
 	--leading-heading: 1.15;
+	--leading-display: 1.25; /* Boldonse has very tall ascenders/descenders */
 	--measure: 65ch;
 
 	/* Fluid type scale: ~1.2 ratio on small screens → ~1.25 on large.
