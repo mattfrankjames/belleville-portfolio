@@ -19,20 +19,34 @@ body {
 }
 
 :where(h1, h2, h3, h4) {
-	font-family: var(--font-heading);
-	font-weight: var(--weight-heading);
 	line-height: var(--leading-heading);
 	text-wrap: balance;
 }
 
+:where(h1, h2) {
+	font-family: var(--font-display);
+	font-weight: var(--weight-display);
+	line-height: var(--leading-display);
+	/* The face is wide: hyphenate long words instead of letting them
+	 * break at an arbitrary letter on narrow screens. */
+	hyphens: auto;
+	/* Boldonse has one upright weight; never fake bold or italic */
+	font-synthesis: none;
+	/* Re-derive the aspect from Boldonse; otherwise the value inherited
+	 * from <html> (Inter's) would shrink it. */
+	font-size-adjust: from-font;
+}
+
+:where(h3, h4) {
+	font-weight: var(--weight-strong);
+}
+
 h1 {
 	font-size: var(--step-4);
-	letter-spacing: -0.02em;
 }
 
 h2 {
 	font-size: var(--step-3);
-	letter-spacing: -0.01em;
 }
 
 h3 {

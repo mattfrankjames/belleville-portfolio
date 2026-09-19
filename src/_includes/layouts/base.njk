@@ -7,8 +7,9 @@
 	<meta name="color-scheme" content="light dark">
 	<meta name="theme-color" content="#ECCFC3" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#54392D" media="(prefers-color-scheme: dark)">
-	{#- Phase 2: preload the primary body font here, e.g.
-	<link rel="preload" href="/assets/fonts/body.woff2" as="font" type="font/woff2" crossorigin> #}
+	{#- Preload the two fonts every page uses above the fold (Latin subsets). #}
+	<link rel="preload" href="/assets/fonts/boldonse-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="/assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>

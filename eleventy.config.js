@@ -54,7 +54,11 @@ export default function (eleventyConfig) {
 	/* ---------------------------------------------------------------
 	 * Static files
 	 * ------------------------------------------------------------- */
-	eleventyConfig.addPassthroughCopy("src/assets/fonts");
+	// Brand fonts from npm (Fontsource): Latin + Latin Extended subsets only.
+	eleventyConfig.addPassthroughCopy({
+		"node_modules/@fontsource/boldonse/files/boldonse-latin{,-ext}-400-normal.woff2": "assets/fonts",
+		"node_modules/@fontsource-variable/inter/files/inter-latin{,-ext}-opsz-{normal,italic}.woff2": "assets/fonts",
+	});
 	eleventyConfig.addPassthroughCopy("src/favicon.svg");
 
 	/* ---------------------------------------------------------------
