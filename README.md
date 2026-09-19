@@ -1,6 +1,6 @@
 # Becca — design portfolio
 
-A static portfolio site built with [Eleventy](https://www.11ty.dev/) v3. It outputs plain HTML and CSS and ships **no client-side JavaScript**.
+A static portfolio site built with [Eleventy](https://www.11ty.dev/) v3. It outputs plain HTML and CSS, with no JavaScript framework. JavaScript is kept small and used only to enhance pages that already work without it.
 
 ## Commands
 
@@ -9,7 +9,19 @@ A static portfolio site built with [Eleventy](https://www.11ty.dev/) v3. It outp
 | `npm start` | Dev server with live reload at http://localhost:8080 |
 | `npm run build` | Production build into `_site/` |
 | `npm run check` | Build, then validate every page’s HTML |
+| `npm test` | Build, validate HTML, then run the browser test suite |
+| `npm run test:browser` | Run only the browser tests (against an existing `_site/`) |
 | `npm run clean` | Delete `_site/` and the image cache |
+
+## Tests
+
+Every pull request runs `.github/workflows/test.yml`, which builds the site, validates the HTML and runs the Playwright suite in `tests/`. Tests run against the built `_site/` served as static files, which matches what Netlify deploys. The page list is read from `sitemap.xml`, so new projects are tested automatically.
+
+- **accessibility.spec.js**: axe WCAG 2.2 AA checks on every page in light and dark mode. Also checks that the skip link works, focus is visible, and the navigation marks the current page.
+- **content.spec.js**: one `<h1>` per page, no skipped heading levels, title, description and canonical present, unique titles, alt text and dimensions on every image, no horizontal scroll at 320px, and no broken internal links or assets.
+- **performance.spec.js**: per-page budgets of at most 30 KB of JavaScript, one stylesheet under 20 KB and HTML under 50 KB. Scripts must not block rendering (`type="module"`, `defer` or `async`) and must be same-origin files, because the CSP in `netlify.toml` blocks inline and third-party scripts. Also checks that every image comes from the image pipeline and that only the hero image loads eagerly.
+
+Run `npx playwright install chromium` once before running the tests locally for the first time.
 
 Requires Node 22+ (`.nvmrc` pins the version Netlify uses).
 
@@ -67,6 +79,10 @@ The body is Markdown. Images written as `![alt text](/assets/images/…)` are op
 - **Theming**: colors use `light-dark()`, so the site follows the visitor's light or dark OS setting. Light mode is Mocha on Almond; dark mode swaps the pair. To ship light-only, set `color-scheme: light` in `_tokens.css` and in the `<meta name="color-scheme">` tag in `base.njk`.
 - **Motion**: page-to-page cross-fades use cross-document View Transitions. They only run when the visitor hasn't asked for reduced motion; other browsers navigate normally.
 - **SEO**: canonical URLs, Open Graph tags, `sitemap.xml` and `robots.txt`. Pages are marked `noindex` unless Netlify's `CONTEXT` is `production`, so deploy previews stay out of search results.
+
+## JavaScript
+
+JavaScript is fine to use in small amounts; a framework is not. Each script should enhance HTML that already works without it, load without blocking rendering, and fit within the budget in `tests/performance.spec.js`. If a page ever needs more, raise the budget in that file on purpose rather than working around the test.
 
 ## Browser support
 
