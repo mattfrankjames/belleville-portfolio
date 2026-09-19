@@ -1,0 +1,11 @@
+---
+layout: base
+---
+<div class="wrapper region flow">
+	{% include "partials/page-header.njk" %}
+	{%- if content | trim %}
+	<div class="prose flow">
+		{{ content | safe }}
+	</div>
+	{%- endif %}
+</div>

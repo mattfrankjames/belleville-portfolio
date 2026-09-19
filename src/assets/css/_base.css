@@ -1,0 +1,86 @@
+/* Element defaults: typography, links, focus. No classes here. */
+
+:root {
+	accent-color: var(--color-accent);
+}
+
+html {
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-weight: var(--weight-body);
+	line-height: var(--leading-body);
+	/* Keeps fallback fonts visually close to the web font while it loads. */
+	font-size-adjust: from-font;
+}
+
+body {
+	font-size: var(--step-0);
+}
+
+:where(h1, h2, h3, h4) {
+	font-family: var(--font-heading);
+	font-weight: var(--weight-heading);
+	line-height: var(--leading-heading);
+	text-wrap: balance;
+}
+
+h1 {
+	font-size: var(--step-4);
+	letter-spacing: -0.02em;
+}
+
+h2 {
+	font-size: var(--step-3);
+	letter-spacing: -0.01em;
+}
+
+h3 {
+	font-size: var(--step-2);
+}
+
+h4 {
+	font-size: var(--step-1);
+}
+
+p {
+	text-wrap: pretty;
+}
+
+small {
+	font-size: var(--step--1);
+}
+
+a {
+	color: var(--color-link);
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.18em;
+
+	&:hover {
+		text-decoration-thickness: 0.14em;
+	}
+}
+
+:focus-visible {
+	outline: var(--focus-width) solid var(--color-focus);
+	outline-offset: var(--focus-offset);
+}
+
+/* The skip-link target is a landmark, not a control; the skip link itself
+ * shows focus, so an outline around all of <main> would only add noise. */
+main:focus {
+	outline: none;
+}
+
+::selection {
+	background-color: var(--color-accent);
+	color: var(--color-bg);
+}
+
+/* Cross-document view transitions: a subtle cross-fade between pages in
+ * supporting browsers. Progressive enhancement — others navigate normally. */
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+}

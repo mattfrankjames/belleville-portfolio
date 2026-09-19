@@ -1,0 +1,27 @@
+{
+  "name": "becca-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal design portfolio built with Eleventy.",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve --quiet",
+    "build": "eleventy",
+    "clean": "rm -rf _site .cache",
+    "lint:html": "html-validate \"_site/**/*.html\"",
+    "check": "npm run build && npm run lint:html"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^7.0.0",
+    "browserslist": "^4.29.0",
+    "html-validate": "^10.11.3",
+    "lightningcss": "^1.33.0"
+  },
+  "browserslist": [
+    "baseline widely available"
+  ]
+}

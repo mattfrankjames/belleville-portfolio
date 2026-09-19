@@ -1,0 +1,77 @@
+/*
+ * Design tokens.
+ * Everything visual that will change with the brand lives here.
+ * Values below are neutral PLACEHOLDERS — swap in brand colors & fonts in Phase 2.
+ *
+ * Tier 1 (--palette-*): raw values. Tier 2 (--color-*, --font-*, --step-*,
+ * --space-*): semantic names the rest of the CSS uses. Components should
+ * only ever reference Tier 2.
+ */
+:root {
+	/* Page supports both schemes; follows the visitor's OS setting.
+	 * To ship light-only, change this to `light` (and the meta tag in base.njk). */
+	color-scheme: light dark;
+
+	/* ---- Tier 1: palette (placeholders) ---- */
+	--palette-neutral-0: oklch(100% 0 0);
+	--palette-neutral-50: oklch(97.5% 0.004 85);
+	--palette-neutral-200: oklch(89% 0.006 85);
+	--palette-neutral-400: oklch(70% 0.008 85);
+	--palette-neutral-600: oklch(46% 0.01 85);
+	--palette-neutral-800: oklch(30% 0.01 85);
+	--palette-neutral-900: oklch(22% 0.01 85);
+	--palette-neutral-950: oklch(16% 0.008 85);
+	--palette-accent-600: oklch(48% 0.15 262);
+	--palette-accent-300: oklch(80% 0.09 262);
+
+	/* ---- Tier 2: semantic colors ---- */
+	--color-bg: light-dark(var(--palette-neutral-50), var(--palette-neutral-950));
+	--color-surface: light-dark(var(--palette-neutral-0), var(--palette-neutral-900));
+	--color-text: light-dark(var(--palette-neutral-900), var(--palette-neutral-50));
+	--color-text-muted: light-dark(var(--palette-neutral-600), var(--palette-neutral-400));
+	--color-border: light-dark(var(--palette-neutral-200), var(--palette-neutral-800));
+	--color-accent: light-dark(var(--palette-accent-600), var(--palette-accent-300));
+	--color-link: var(--color-accent);
+	--color-focus: var(--color-accent);
+
+	/* ---- Typography ---- */
+	--font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-heading: var(--font-body);
+	--weight-body: 400;
+	--weight-heading: 650;
+	--leading-body: 1.6;
+	--leading-heading: 1.15;
+	--measure: 65ch;
+
+	/* Fluid type scale: ~1.2 ratio on small screens → ~1.25 on large.
+	 * Each max stays under 2.5× its min so text still scales with zoom (WCAG 1.4.4). */
+	--step--1: clamp(0.833rem, 0.81rem + 0.12vw, 0.9rem);
+	--step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+	--step-1: clamp(1.2rem, 1.13rem + 0.35vw, 1.406rem);
+	--step-2: clamp(1.44rem, 1.32rem + 0.6vw, 1.758rem);
+	--step-3: clamp(1.728rem, 1.53rem + 0.98vw, 2.197rem);
+	--step-4: clamp(2.074rem, 1.77rem + 1.5vw, 2.747rem);
+	--step-5: clamp(2.488rem, 2.03rem + 2.3vw, 3.433rem);
+
+	/* ---- Space (fluid) ---- */
+	--space-3xs: clamp(0.25rem, 0.24rem + 0.06vw, 0.28rem);
+	--space-2xs: clamp(0.5rem, 0.48rem + 0.12vw, 0.56rem);
+	--space-xs: clamp(0.75rem, 0.72rem + 0.18vw, 0.84rem);
+	--space-s: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+	--space-m: clamp(1.5rem, 1.44rem + 0.3vw, 1.69rem);
+	--space-l: clamp(2rem, 1.92rem + 0.4vw, 2.25rem);
+	--space-xl: clamp(3rem, 2.88rem + 0.6vw, 3.38rem);
+	--space-2xl: clamp(4rem, 3.84rem + 0.8vw, 4.5rem);
+	--space-region: clamp(2.5rem, 1.5rem + 5vw, 6rem);
+	--gutter: clamp(1rem, 0.6rem + 2vw, 2rem);
+
+	/* ---- Layout ---- */
+	--container-max: 72rem;
+	--radius: 0.25rem;
+
+	/* ---- Interaction ---- */
+	--focus-width: 3px;
+	--focus-offset: 3px;
+	--duration: 200ms;
+	--ease: cubic-bezier(0.2, 0, 0, 1);
+}

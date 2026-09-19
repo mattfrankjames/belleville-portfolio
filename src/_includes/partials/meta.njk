@@ -1,0 +1,21 @@
+{%- set pageTitle = (title + " | " + site.name) if title and page.url != "/" else (site.name + " | " + site.tagline) -%}
+{%- set pageDescription = description or summary or site.description -%}
+{%- set canonical = page.url | absoluteUrl(build.url) -%}
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDescription }}">
+<link rel="canonical" href="{{ canonical }}">
+{%- if noindex or not build.isProduction %}
+<meta name="robots" content="noindex">
+{%- endif %}
+<meta property="og:type" content="{{ 'article' if layout == 'project' else 'website' }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="{{ site.locale }}">
+<meta property="og:title" content="{{ title or site.name }}">
+<meta property="og:description" content="{{ pageDescription }}">
+<meta property="og:url" content="{{ canonical }}">
+{%- if ogImage %}
+<meta property="og:image" content="{{ ogImage | absoluteUrl(build.url) }}">
+<meta name="twitter:card" content="summary_large_image">
+{%- else %}
+<meta name="twitter:card" content="summary">
+{%- endif %}

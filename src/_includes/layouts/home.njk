@@ -1,0 +1,33 @@
+---
+layout: base
+---
+{%- from "partials/project-card.njk" import projectCard %}
+<section class="intro wrapper region flow">
+	<h1 class="intro-heading">{{ heading or site.name }}</h1>
+	{%- if content | trim %}
+	<div class="intro-body prose flow">
+		{{ content | safe }}
+	</div>
+	{%- endif %}
+</section>
+
+{%- set featuredProjects = collections.projects | featured %}
+{%- if featuredProjects.length %}
+<section class="wrapper region flow">
+	<h2>{{ featuredHeading or "Selected work" }}</h2>
+	<ul class="card-grid" role="list">
+		{%- for project in featuredProjects %}
+		<li>{{ projectCard(project, 3) }}</li>
+		{%- endfor %}
+	</ul>
+	<p><a class="arrow-link" href="/work/">View all work</a></p>
+</section>
+{%- endif %}
+
+<section class="contact-cta wrapper region flow">
+	<h2>{{ contactHeading or "Get in touch" }}</h2>
+	{%- if contactText %}
+	<p>{{ contactText }}</p>
+	{%- endif %}
+	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+</section>

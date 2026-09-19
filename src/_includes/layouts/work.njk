@@ -1,0 +1,17 @@
+---
+layout: base
+---
+{%- from "partials/project-card.njk" import projectCard %}
+<div class="wrapper region flow">
+	{% include "partials/page-header.njk" %}
+	{%- if content | trim %}
+	<div class="prose flow">
+		{{ content | safe }}
+	</div>
+	{%- endif %}
+	<ul class="card-grid" role="list">
+		{%- for project in collections.projects %}
+		<li>{{ projectCard(project, 2) }}</li>
+		{%- endfor %}
+	</ul>
+</div>

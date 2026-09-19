@@ -1,0 +1,13 @@
+<footer class="site-footer">
+	<div class="wrapper site-footer-inner">
+		<p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+		{%- if site.social.length %}
+		<ul class="social-list" role="list">
+			{%- for link in site.social %}
+			<li><a href="{{ link.url }}" rel="me">{{ link.label }}</a></li>
+			{%- endfor %}
+		</ul>
+		{%- endif %}
+		<p class="copyright"><small>&copy; {{ build.year }} {{ site.name }}</small></p>
+	</div>
+</footer>

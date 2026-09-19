@@ -1,0 +1,14 @@
+<header class="site-header">
+	<div class="wrapper site-header-inner">
+		<a class="site-name" href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>{{ site.name }}</a>
+		<nav class="site-nav" aria-label="Main">
+			<ul role="list">
+				{%- for item in site.nav %}
+				{%- set isCurrent = page.url == item.url %}
+				{%- set isInSection = not isCurrent and page.url.startsWith(item.url) %}
+				<li><a href="{{ item.url }}"{% if isCurrent %} aria-current="page"{% elif isInSection %} aria-current="true"{% endif %}>{{ item.label }}</a></li>
+				{%- endfor %}
+			</ul>
+		</nav>
+	</div>
+</header>

@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+# Security headers for every response.
+# CSP allows only same-origin resources; the site ships no inline scripts or styles.
+# When the CMS is added at /admin, it will need its own, looser policy.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Processed images have content-hashed filenames, so they can be cached forever.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

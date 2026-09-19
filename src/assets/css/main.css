@@ -1,0 +1,15 @@
+/*
+ * Stylesheet entry point.
+ * At build time Lightning CSS inlines these imports into one minified file.
+ * Cascade layers are declared once here, lowest priority first, so rule
+ * order never matters across files — a later layer always wins.
+ */
+@layer reset, tokens, base, layout, components, utilities;
+
+@import "_fonts.css";
+@import "_reset.css" layer(reset);
+@import "_tokens.css" layer(tokens);
+@import "_base.css" layer(base);
+@import "_layout.css" layer(layout);
+@import "_components.css" layer(components);
+@import "_utilities.css" layer(utilities);

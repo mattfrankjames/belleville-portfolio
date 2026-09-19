@@ -1,0 +1,35 @@
+/* Layout primitives. Composable classes, no visual styling. */
+
+/* Sticky footer: header / main / footer */
+body {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-block-size: 100dvh;
+}
+
+/* Centered, max-width content column with fluid side gutters */
+.wrapper {
+	inline-size: min(100% - 2 * var(--gutter), var(--container-max));
+	margin-inline: auto;
+}
+
+/* Vertical rhythm between sections */
+.region {
+	padding-block: var(--space-region);
+}
+
+.region + .region {
+	padding-block-start: 0;
+}
+
+/* Consistent space between siblings. Override per-context with --flow-space. */
+.flow > :where(* + *) {
+	margin-block-start: var(--flow-space, 1em);
+}
+
+/* Responsive card grid: 1 column on small screens, 2 on large */
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 28rem), 1fr));
+	gap: var(--space-xl) var(--space-l);
+}

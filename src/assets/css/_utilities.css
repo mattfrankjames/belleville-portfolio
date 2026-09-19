@@ -1,0 +1,15 @@
+/* Single-purpose helpers. Highest layer, so they always win. */
+
+/* Hide visually, keep available to screen readers. Becomes visible when it
+ * (or something inside it) is focused. */
+.visually-hidden:where(:not(:focus-within, :active)) {
+	position: absolute;
+	clip-path: inset(50%);
+	overflow: hidden;
+	inline-size: 1px;
+	block-size: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	white-space: nowrap;
+}

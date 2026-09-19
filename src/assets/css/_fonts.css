@@ -1,0 +1,14 @@
+/*
+ * Self-hosted web fonts (Phase 2).
+ * Put subsetted .woff2 files in src/assets/fonts/, declare them here,
+ * then point --font-body / --font-heading in _tokens.css at the family.
+ * Preload only the primary body weight (see layouts/base.njk).
+ *
+ * @font-face {
+ *   font-family: "Body";
+ *   src: url("/assets/fonts/body-regular.woff2") format("woff2");
+ *   font-weight: 400;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ */

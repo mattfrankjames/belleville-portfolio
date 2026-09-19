@@ -1,0 +1,19 @@
+{#-
+	Project card. The whole card is clickable via the heading link’s
+	::after, while only the heading is announced as the link name.
+	The cover is decorative here (alt="") because the title already
+	names the link; the project page shows it again with real alt text.
+
+	Usage: {{ projectCard(project, headingLevel) }}
+#}
+{%- macro projectCard(project, headingLevel = 2) -%}
+<article class="card">
+	<h{{ headingLevel }} class="card-title"><a href="{{ project.url }}">{{ project.data.title }}</a></h{{ headingLevel }}>
+	{%- if project.data.summary %}
+	<p class="card-summary">{{ project.data.summary }}</p>
+	{%- endif %}
+	{%- if project.data.cover and project.data.cover.src %}
+	<img class="card-image" eleventy:pictureattr:class="card-media" src="{{ project.data.cover.src }}" alt="" sizes="(min-width: 76rem) 35rem, (min-width: 62rem) 50vw, calc(100vw - 2rem)">
+	{%- endif %}
+</article>
+{%- endmacro -%}

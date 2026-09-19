@@ -1,0 +1,46 @@
+---
+layout: base
+---
+{%- set previousProject = collections.projects | getPreviousCollectionItem %}
+{%- set nextProject = collections.projects | getNextCollectionItem %}
+<article class="project">
+	<header class="project-header wrapper region flow">
+		<h1>{{ title }}</h1>
+		{%- if summary %}
+		<p class="lede">{{ summary }}</p>
+		{%- endif %}
+		{%- if client or year or role or services %}
+		<dl class="project-meta">
+			{%- if client %}<div><dt>Client</dt><dd>{{ client }}</dd></div>{% endif %}
+			{%- if year %}<div><dt>Year</dt><dd>{{ year }}</dd></div>{% endif %}
+			{%- if role %}<div><dt>Role</dt><dd>{{ role }}</dd></div>{% endif %}
+			{%- if services %}<div><dt>Services</dt><dd>{{ services | join(", ") }}</dd></div>{% endif %}
+		</dl>
+		{%- endif %}
+	</header>
+
+	{%- if cover and cover.src %}
+	<div class="project-cover wrapper">
+		{#- Likely LCP element: load eagerly at high priority. #}
+		<img src="{{ cover.src }}" alt="{{ cover.alt }}" loading="eager" fetchpriority="high" sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)">
+	</div>
+	{%- endif %}
+
+	<div class="project-body wrapper region">
+		<div class="prose flow">
+			{{ content | safe }}
+		</div>
+	</div>
+</article>
+
+<nav class="pager wrapper region" aria-label="More projects">
+	<ul role="list">
+		{%- if previousProject %}
+		<li class="pager-previous"><a href="{{ previousProject.url }}" rel="prev"><span class="pager-label">Previous project</span> {{ previousProject.data.title }}</a></li>
+		{%- endif %}
+		{%- if nextProject %}
+		<li class="pager-next"><a href="{{ nextProject.url }}" rel="next"><span class="pager-label">Next project</span> {{ nextProject.data.title }}</a></li>
+		{%- endif %}
+	</ul>
+	<p><a class="arrow-link" href="/work/">All work</a></p>
+</nav>

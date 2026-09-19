@@ -1,0 +1,16 @@
+{
+	"name": "Becca",
+	"tagline": "Designer",
+	"description": "Placeholder description — a one- or two-sentence summary of Becca’s design practice, used in search results and link previews.",
+	"lang": "en",
+	"locale": "en_US",
+	"email": "hello@example.com",
+	"nav": [
+		{ "label": "Work", "url": "/work/" },
+		{ "label": "Contact", "url": "/contact/" }
+	],
+	"social": [
+		{ "label": "LinkedIn", "url": "https://example.com/linkedin" },
+		{ "label": "Instagram", "url": "https://example.com/instagram" }
+	]
+}
