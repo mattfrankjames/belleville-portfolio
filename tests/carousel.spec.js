@@ -15,6 +15,11 @@ test.describe("carousel: works without JavaScript", () => {
 		}
 		// Controls stay hidden: they do nothing without the script.
 		await expect(page.locator("[data-carousel-controls]").first()).toBeHidden();
+
+		// Nothing moves without the script, so no pause control is needed.
+		const animated = page.locator("[data-animation] img");
+		expect(await animated.getAttribute("src")).toContain("tgwdlm-still.webp");
+		await expect(page.locator(".animation-toggle")).toHaveCount(0);
 	});
 });
 
@@ -65,7 +70,7 @@ test.describe("carousel: enhanced", () => {
 		await page.mouse.move(0, 0);
 
 		// While rotating: pause button offered (WCAG 2.2.2), live region off.
-		await expect(carousel.getByRole("button", { name: /pause/i })).toBeVisible();
+		await expect(carousel.getByRole("button", { name: /pause automatic slideshow/i })).toBeVisible();
 		await expect(track).toHaveAttribute("aria-live", "off");
 
 		// It advances on its own...
@@ -74,18 +79,18 @@ test.describe("carousel: enhanced", () => {
 		// ...through to the last slide, then stops and announces politely.
 		await expect(status).toHaveText(`${total} of ${total}`, { timeout: 30000 });
 		await expect(track).toHaveAttribute("aria-live", "polite");
-		await expect(carousel.getByRole("button", { name: /pause/i })).toBeHidden();
+		await expect(carousel.getByRole("button", { name: /pause automatic slideshow/i })).toBeHidden();
 	});
 
 	test("pause button stops auto-play", async ({ page }) => {
 		await page.goto("/work/");
 		const carousel = page.locator("[data-carousel]").last();
 		await page.mouse.move(0, 0);
-		const pause = carousel.getByRole("button", { name: /pause/i });
+		const pause = carousel.getByRole("button", { name: /pause automatic slideshow/i });
 		await pause.click();
 
 		await expect(carousel.locator("[data-carousel-track]")).toHaveAttribute("aria-live", "polite");
-		await expect(carousel.getByRole("button", { name: /play/i })).toBeVisible();
+		await expect(carousel.getByRole("button", { name: /play automatic slideshow/i })).toBeVisible();
 		const status = await carousel.locator("[data-carousel-status]").textContent();
 		await page.waitForTimeout(6000);
 		expect(await carousel.locator("[data-carousel-status]").textContent()).toBe(status);
@@ -98,25 +103,40 @@ test.describe("carousel: enhanced", () => {
 		await page.mouse.move(0, 0);
 
 		await expect(carousel.locator("[data-carousel-track]")).toHaveAttribute("aria-live", "polite");
-		await expect(carousel.getByRole("button", { name: /pause/i })).toBeHidden();
+		await expect(carousel.getByRole("button", { name: /pause automatic slideshow/i })).toBeHidden();
 		const status = await carousel.locator("[data-carousel-status]").textContent();
 		await page.waitForTimeout(6000);
 		expect(await carousel.locator("[data-carousel-status]").textContent()).toBe(status);
 	});
 
-	test("animated cover falls back to a still under reduced motion", async ({ page }) => {
+	test("animation plays, can be paused, and needs no JavaScript to be safe", async ({ page }) => {
 		await page.goto("/work/");
-		const animated = page.locator('img[src*="tgwdlm"]');
-		await animated.scrollIntoViewIfNeeded(); // it lazy-loads
-		await expect(animated).toHaveJSProperty("complete", true);
-		expect(await animated.evaluate((img) => img.currentSrc)).toContain("tgwdlm-animation.webp");
+		const figure = page.locator("[data-animation]").first();
+		const image = figure.locator("img");
+		await image.scrollIntoViewIfNeeded(); // it lazy-loads
 
+		// The script swaps the still for the animation and adds the control.
+		await expect(image).toHaveAttribute("src", /tgwdlm-animation\.webp/);
+		await expect(image).toHaveJSProperty("complete", true);
+
+		// Motion runs longer than 5s, so a pause control is required (WCAG 2.2.2).
+		const pause = figure.getByRole("button", { name: /pause animation/i });
+		await expect(pause).toBeVisible();
+		await pause.click();
+		await expect(image).toHaveAttribute("src", /tgwdlm-still\.webp/);
+		await expect(figure.getByRole("button", { name: /play animation/i })).toBeVisible();
+	});
+
+	test("animation does not start under reduced motion", async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: "reduce" });
-		await page.reload();
-		const still = page.locator('img[src*="tgwdlm"]');
-		await still.scrollIntoViewIfNeeded();
-		await expect(still).toHaveJSProperty("complete", true);
-		expect(await still.evaluate((img) => img.currentSrc)).toContain("tgwdlm-still.webp");
+		await page.goto("/work/");
+		const figure = page.locator("[data-animation]").first();
+		const image = figure.locator("img");
+		await image.scrollIntoViewIfNeeded();
+
+		await expect(image).toHaveAttribute("src", /tgwdlm-still\.webp/);
+		await expect(image).toHaveJSProperty("complete", true);
+		await expect(figure.getByRole("button", { name: /play animation/i })).toBeVisible();
 	});
 
 	test("keyboard reaches every project link", async ({ page }) => {

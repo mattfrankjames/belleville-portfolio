@@ -1,16 +1,28 @@
 {
-	"name": "Becca",
-	"tagline": "Designer",
-	"description": "Placeholder description — a one- or two-sentence summary of Becca’s design practice, used in search results and link previews.",
+	"name": "Becca Belleville",
+	"tagline": "Designer and Artist",
+	"description": "Becca Belleville is a designer and artist working in branding, infographics, typography, and promotion.",
 	"lang": "en",
 	"locale": "en_US",
 	"email": "hello@example.com",
 	"nav": [
-		{ "label": "Work", "url": "/work/" },
-		{ "label": "Contact", "url": "/contact/" }
+		{
+			"label": "Work",
+			"url": "/work/"
+		},
+		{
+			"label": "Contact",
+			"url": "/contact/"
+		}
 	],
 	"social": [
-		{ "label": "LinkedIn", "url": "https://example.com/linkedin" },
-		{ "label": "Instagram", "url": "https://example.com/instagram" }
+		{
+			"label": "LinkedIn",
+			"url": "https://example.com/linkedin"
+		},
+		{
+			"label": "Instagram",
+			"url": "https://example.com/instagram"
+		}
 	]
 }

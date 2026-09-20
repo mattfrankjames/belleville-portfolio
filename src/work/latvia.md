@@ -2,26 +2,8 @@
 title: Latvia
 section: branding
 order: 1
-summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
-# Fill in and uncomment as needed:
-# client:
-# year:
-# role:
-# services:
-#   - Service one
+summary: "Promotional rebranding concept for the Tourism Board of the country of Latvia."
 cover:
   src: /assets/images/latvia-poster/latvia-poster.jpg
   alt: "Brand board for Latvia: floral logo marks, a colour palette, buttons, printed materials and a tote bag"
 ---
-
-## The challenge
-
-PLACEHOLDER — the brief, the audience, and what needed to change.
-
-## The approach
-
-PLACEHOLDER — the process, key decisions, and how the work took shape.
-
-## The outcome
-
-PLACEHOLDER — the result, and any response or impact.

@@ -1,14 +1,8 @@
 ---
-title: Meramec Gallery Rebrand
+title: Meramec Contemporary Gallery
 section: promotion
 order: 2
-summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
-# Fill in and uncomment as needed:
-# client:
-# year:
-# role:
-# services:
-#   - Service one
+summary: "Rebranding presentation for local contemporary art gallery including brand kit, signage, and merchandise."
 cover:
   src: /assets/images/mcg-82/mcg-82-1.jpg
   alt: "Gallery collateral photographed outdoors: a tote bag with the reversed MEMEM mark, printed cards, stickers and posters pasted on a wall"
@@ -24,15 +18,3 @@ gallery:
   - src: /assets/images/mcg-82/mcg-82-6.png
     alt: "The yellow and black season posters shown side by side as a set"
 ---
-
-## The challenge
-
-PLACEHOLDER — the brief, the audience, and what needed to change.
-
-## The approach
-
-PLACEHOLDER — the process, key decisions, and how the work took shape.
-
-## The outcome
-
-PLACEHOLDER — the result, and any response or impact.

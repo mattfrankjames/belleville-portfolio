@@ -159,18 +159,15 @@
 		margin-block-end: var(--space-xs);
 	}
 
-	/* Show whole artwork — posters, spreads and squares keep their own
-	 * proportions rather than being cropped — but cap the height so a tall
-	 * portrait piece doesn't tower over the rest. `contain` shrinks it to
-	 * fit instead of cropping or distorting it. */
+	/* Artwork fills the card's width. Height is capped so a tall portrait
+	 * piece doesn't tower over the rest; anything taller than the cap is
+	 * cropped from the bottom, keeping the top of a poster visible. */
 	& .card-image {
 		inline-size: 100%;
 		block-size: auto;
 		max-block-size: min(58svh, 30rem);
-		object-fit: contain;
-		/* Shrunken artwork lines up with the title rather than floating
-		 * in the middle of the card. */
-		object-position: left center;
+		object-fit: cover;
+		object-position: center top;
 		border-radius: var(--radius);
 	}
 
@@ -376,4 +373,33 @@
 	inline-size: 100%;
 	block-size: auto;
 	border-radius: var(--radius);
+}
+
+/* ---- Animated artwork ---- */
+.animated-image {
+	position: relative;
+	display: grid;
+}
+
+.animation-toggle {
+	position: absolute;
+	inset-block-end: var(--space-2xs);
+	inset-inline-start: var(--space-2xs);
+	/* Above the card link's stretched ::after, so it stays clickable. */
+	z-index: 1;
+	min-block-size: 44px;
+	padding: var(--space-3xs) var(--space-xs);
+	border: 2px solid var(--color-bg);
+	border-radius: 999px;
+	background-color: var(--color-text);
+	color: var(--color-bg);
+	font-size: var(--step--1);
+	line-height: 1;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		border-color: var(--color-text);
+	}
 }

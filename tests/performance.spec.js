@@ -79,10 +79,9 @@ for (const path of pages) {
 					src: img.getAttribute("src"),
 					inPicture: img.parentElement?.tagName === "PICTURE",
 					hasAvif: Boolean(img.parentElement?.querySelector('source[type="image/avif"]')),
-					// Animated covers skip the pipeline (it flattens animation) but
-					// must offer a still frame to visitors who prefer reduced motion.
-					isAnimated: /\.(gif|webp)$/.test(img.getAttribute("src") ?? "") &&
-						Boolean(img.parentElement?.querySelector('source[media*="prefers-reduced-motion"]')),
+					// Animated artwork skips the pipeline (it would flatten the
+					// animation) and ships the still frame instead.
+					isAnimated: Boolean(img.closest("[data-animation]")),
 					loading: img.getAttribute("loading"),
 					fetchpriority: img.getAttribute("fetchpriority"),
 				})),
@@ -90,8 +89,8 @@ for (const path of pages) {
 
 			for (const img of images) {
 				expect(
-					img.inPicture && (img.hasAvif || img.isAnimated),
-					`not run through the image pipeline, and not an animation with a reduced-motion still: ${img.src}`,
+					(img.inPicture && img.hasAvif) || img.isAnimated,
+					`not run through the image pipeline, and not animated artwork: ${img.src}`,
 				).toBe(true);
 
 				// Only the hero may be eager/high priority; everything else lazy-loads.

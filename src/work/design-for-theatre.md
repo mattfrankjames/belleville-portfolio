@@ -1,14 +1,8 @@
 ---
-title: Design for Theatre
+title: Meramec Theatre
 section: promotion
 order: 1
-summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
-# Fill in and uncomment as needed:
-# client:
-# year:
-# role:
-# services:
-#   - Service one
+summary: "Awarded branding concepts for Meramec Theatre Season 2026–2027 — brand kit, hand drawn illustrations, and motion graphics for various media platforms, print, and merchandise."
 cover:
   src: /assets/media/tgwdlm-animation.webp
   alt: "Animated poster for “The Guy Who Didn’t Like Musicals”: red distorted type over a dark background, cycling through colour variants and a close-up of spilled paper cups"
@@ -38,15 +32,3 @@ gallery:
   - src: /assets/images/design-for-theatre/design-for-theatre-10.jpg
     alt: "Square social post for The Guy Who Didn’t Like Musicals in red on black"
 ---
-
-## The challenge
-
-PLACEHOLDER — the brief, the audience, and what needed to change.
-
-## The approach
-
-PLACEHOLDER — the process, key decisions, and how the work took shape.
-
-## The outcome
-
-PLACEHOLDER — the result, and any response or impact.
