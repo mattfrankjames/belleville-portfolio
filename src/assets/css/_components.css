@@ -280,3 +280,95 @@
 	font-weight: var(--weight-strong);
 	overflow-wrap: anywhere;
 }
+
+/* ---- Work sections ---- */
+.work-section {
+	--flow-space: var(--space-m);
+}
+
+/* ---- Carousel ----
+ * Base: a scroll-snapping row that works with no JavaScript.
+ * The controls are revealed by /assets/js/carousel.js.
+ */
+.carousel-track {
+	display: flex;
+	gap: var(--space-l);
+	margin: 0;
+	padding: 0;
+	padding-block-end: var(--space-xs);
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-color: var(--color-text) transparent;
+	scrollbar-width: thin;
+}
+
+.carousel-slide {
+	/* Always narrower than the track, so the next slide peeks and there is
+	 * something to scroll even in a section with only two projects. */
+	flex: 0 0 clamp(17rem, 58%, 40rem);
+	scroll-snap-align: start;
+}
+
+.carousel-controls {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2xs);
+	padding-block-start: var(--space-s);
+}
+
+.carousel-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-3xs);
+	min-inline-size: 44px;
+	min-block-size: 44px;
+	padding: var(--space-3xs) var(--space-xs);
+	border: 2px solid var(--color-text);
+	border-radius: 999px;
+	background-color: transparent;
+	color: var(--color-text);
+	font-size: var(--step--1);
+	line-height: 1;
+	cursor: pointer;
+
+	/* Hover keeps the text-safe pair (7:1); Tangerine is decoration only. */
+	&:hover:not([aria-disabled="true"]) {
+		background-color: var(--color-text);
+		color: var(--color-bg);
+	}
+
+	&[aria-disabled="true"] {
+		opacity: 0.45;
+		cursor: default;
+	}
+}
+
+.carousel-arrow {
+	font-size: var(--step-0);
+}
+
+.carousel-toggle {
+	margin-inline-start: auto;
+}
+
+.carousel-status {
+	min-inline-size: 5ch;
+	color: var(--color-text-muted);
+	font-size: var(--step--1);
+	font-variant-numeric: tabular-nums;
+	text-align: center;
+}
+
+/* ---- Project gallery ---- */
+.project-gallery ul {
+	display: grid;
+	gap: var(--space-l);
+}
+
+.project-gallery img {
+	inline-size: 100%;
+	block-size: auto;
+	border-radius: var(--radius);
+}

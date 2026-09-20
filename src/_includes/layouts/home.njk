@@ -11,7 +11,7 @@ layout: base
 	{%- endif %}
 </section>
 
-{%- set featuredProjects = collections.projects | featured %}
+{%- set featuredProjects = collections.projects | onePerSection %}
 {%- if featuredProjects.length %}
 <section class="wrapper region flow">
 	<h2>{{ featuredHeading or "Selected work" }}</h2>

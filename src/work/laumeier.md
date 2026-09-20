@@ -1,5 +1,7 @@
 ---
-title: Little Edie Alphabet
+title: Laumeier
+section: promotion
+order: 3
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -8,10 +10,11 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 # services:
 #   - Service one
 cover:
-  src: /assets/images/little-edie-alphabet/little-edie-alphabet.jpg
-  alt: "Hand-lettered alphabet specimen on cream card, photographed among white tulips"
-featured: false
-order: 5
+  src: /assets/images/laumeier/laumeier-begin-again-poster.png
+  alt: "Design software artboard showing a poster for the exhibition “Begin Again: 50 Years and Counting”, with a cut-paper figure, red flowers and olive foliage"
+gallery:
+  - src: /assets/images/laumeier/laumeier-wordmark-studies.png
+    alt: "Dark artboard with cut-paper shapes in olive, red and white forming the Laumeier wordmark"
 ---
 
 ## The challenge

@@ -1,0 +1,19 @@
+{#-
+	Renders a project cover.
+
+	A normal cover goes through the build image pipeline (AVIF/WebP at several
+	widths). An animated cover (cover.animated) is served as-is with
+	eleventy:ignore, and a still frame replaces it under prefers-reduced-motion.
+
+	Usage: {{ coverImage(cover, alt, sizes, eager) }}
+#}
+{%- macro coverImage(cover, alt = "", sizes = "100vw", eager = false) -%}
+{%- if cover.animated %}
+<picture>
+	<source media="(prefers-reduced-motion: reduce)" srcset="{{ cover.still }}" type="image/webp">
+	<img class="card-image" src="{{ cover.src }}" alt="{{ alt }}" width="{{ cover.width }}" height="{{ cover.height }}"{% if eager %} loading="eager" fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async" eleventy:ignore>
+</picture>
+{%- else %}
+<img class="card-image" src="{{ cover.src }}" alt="{{ alt }}" sizes="{{ sizes }}"{% if eager %} loading="eager" fetchpriority="high"{% endif %}>
+{%- endif %}
+{%- endmacro -%}

@@ -1,5 +1,7 @@
 ---
 title: Recipes for a Family
+section: infographics
+order: 2
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -10,8 +12,6 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 cover:
   src: /assets/images/cookbook-mockup/cookbook-mockup.jpg
   alt: "Cookbook mockup showing the cover and open spreads of “Recipes for a Family” with photographs and handwritten recipes"
-featured: false
-order: 7
 ---
 
 ## The challenge

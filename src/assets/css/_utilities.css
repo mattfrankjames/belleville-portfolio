@@ -13,3 +13,10 @@
 	border: 0;
 	white-space: nowrap;
 }
+
+/* The `hidden` attribute must win over component display rules — the UA
+ * default (display: none) loses to any class selector, which silently
+ * reveals elements that JavaScript expects to be hidden. */
+[hidden] {
+	display: none;
+}

@@ -78,7 +78,7 @@ Source artwork lives in iCloud (`…/CloudDocs/Documents/becca-portfolio-site/`)
 
 - PDFs are rasterized one image per page at 2000px on the long side (CoreGraphics via `swiftc`), then saved as JPEG (quality 88, no chroma subsampling) or lossless PNG — whichever is smaller for that image. 2000px is the largest useful master, since the build never generates above 1600px.
 - Files are named in lower case with hyphens and grouped per project: `src/assets/images/<project>/<project>-<n>.jpg`.
-- The animated poster is an animated WebP in `src/assets/media/`, served as-is: the image pipeline handles stills.
+- The theatre animation is an animated WebP in `src/assets/media/`, served as-is because the image pipeline flattens animation. It is rebuilt from the original GIF to play through **once** (`loop: 1`, about 3.8 seconds, ending on the poster frame), so it needs no pause control under WCAG 2.2.2, and `tgwdlm-still.webp` beside it is the frame shown under `prefers-reduced-motion`.
 - `assets-source/` holds 2800px archive masters and `manifest.json`. It's git-ignored, and is what to upload if the site ever moves to Cloudinary.
 
 ## How things work

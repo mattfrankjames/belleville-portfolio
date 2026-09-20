@@ -1,5 +1,7 @@
 ---
 title: Palette Hunter
+section: promotion
+order: 4
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -10,8 +12,6 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 cover:
   src: /assets/images/palette-hunter-poster/palette-hunter-poster.jpg
   alt: "App promotion poster reading “Hunting for the perfect palette?” with hands holding a phone above a row of app screens"
-featured: false
-order: 6
 ---
 
 ## The challenge

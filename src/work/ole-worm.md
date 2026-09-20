@@ -1,5 +1,7 @@
 ---
 title: Ole Worm
+section: typography
+order: 1
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -8,10 +10,11 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 # services:
 #   - Service one
 cover:
-  src: /assets/images/ole-worm-poster/ole-worm-poster.jpg
+  src: /assets/images/ole-worm/ole-worm-poster.jpg
   alt: "Typographic poster in pink and cream with looping script reading “the quivering liminal space between enlightenment and self destruction”"
-featured: false
-order: 8
+gallery:
+  - src: /assets/images/ole-worm/little-edie-alphabet.jpg
+    alt: "Hand-lettered alphabet specimen on cream card, photographed among white tulips"
 ---
 
 ## The challenge

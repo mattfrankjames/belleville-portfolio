@@ -1,5 +1,7 @@
 ---
 title: Latvia
+section: branding
+order: 1
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -10,8 +12,6 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 cover:
   src: /assets/images/latvia-poster/latvia-poster.jpg
   alt: "Brand board for Latvia: floral logo marks, a colour palette, buttons, printed materials and a tote bag"
-featured: false
-order: 9
 ---
 
 ## The challenge

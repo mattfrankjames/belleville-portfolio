@@ -20,5 +20,8 @@
 		{{ content | safe }}
 	</main>
 	{% include "partials/footer.njk" %}
+	{%- for script in scripts %}
+	<script type="module" src="{{ script }}"></script>
+	{%- endfor %}
 </body>
 </html>

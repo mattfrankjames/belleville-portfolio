@@ -1,6 +1,7 @@
 ---
 layout: base
 ---
+{%- from "partials/cover-image.njk" import coverImage %}
 {%- set previousProject = collections.projects | getPreviousCollectionItem %}
 {%- set nextProject = collections.projects | getNextCollectionItem %}
 <article class="project">
@@ -22,7 +23,7 @@ layout: base
 	{%- if cover and cover.src %}
 	<div class="project-cover wrapper">
 		{#- Likely LCP element: load eagerly at high priority. #}
-		<img src="{{ cover.src }}" alt="{{ cover.alt }}" loading="eager" fetchpriority="high" sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)">
+		{{ coverImage(cover, cover.alt, "(min-width: 76rem) 72rem, calc(100vw - 2rem)", true) }}
 	</div>
 	{%- endif %}
 
@@ -31,6 +32,17 @@ layout: base
 			{{ content | safe }}
 		</div>
 	</div>
+
+	{%- if gallery.length %}
+	<div class="project-gallery wrapper region">
+		<h2 class="visually-hidden">More images from this project</h2>
+		<ul role="list">
+			{%- for image in gallery %}
+			<li><img src="{{ image.src }}" alt="{{ image.alt }}" sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)"></li>
+			{%- endfor %}
+		</ul>
+	</div>
+	{%- endif %}
 </article>
 
 <nav class="pager wrapper region" aria-label="More projects">

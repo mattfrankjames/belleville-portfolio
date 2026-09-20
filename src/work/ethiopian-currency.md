@@ -1,5 +1,7 @@
 ---
 title: Ethiopian Currency
+section: branding
+order: 2
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:
@@ -10,8 +12,6 @@ summary: PLACEHOLDER — one sentence about this project, shown on cards and as 
 cover:
   src: /assets/images/ethiopia-currency/ethiopia-currency.png
   alt: "Banknote series for the National Bank of Ethiopia in denominations of 1, 5 and 10, each with landscape and wildlife illustrations"
-featured: false
-order: 4
 ---
 
 ## The challenge
