@@ -6,6 +6,7 @@ summary: "Infographic of Missouri child neglect data including hand drawn illust
 cover:
   src: /assets/images/neglect/neglect-1.jpg
   alt: "Information poster titled “Poverty & Child Neglect” with a cut-paper collage figure and statistics on definitions and findings"
+imageLayout: row
 gallery:
   - src: /assets/images/neglect/neglect-2.jpg
     alt: "Poster showing a map of Missouri marked with data points on neglect-related removals in 2024, in white and orange on black"

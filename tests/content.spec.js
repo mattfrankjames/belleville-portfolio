@@ -65,6 +65,28 @@ test.describe("responsive layout", () => {
 	}
 });
 
+test.describe("cards", () => {
+	for (const path of ["/", "/work/"]) {
+		test(`${path} shows each card's artwork above its title`, async ({ page }) => {
+			await page.goto(path);
+			const cards = await page.locator(".card").evaluateAll((els) =>
+				els.map((card) => {
+					const title = card.querySelector(".card-title");
+					const media = card.querySelector(".animated-image, picture, img");
+					return {
+						title: title?.textContent?.trim(),
+						imageAbove: media.getBoundingClientRect().top < title.getBoundingClientRect().top,
+					};
+				}),
+			);
+			expect(cards.length).toBeGreaterThan(0);
+			for (const card of cards) {
+				expect(card.imageAbove, `artwork should sit above the title: ${card.title}`).toBe(true);
+			}
+		});
+	}
+});
+
 test("internal links and assets resolve", async ({ page, request }) => {
 	const urls = new Set();
 	for (const path of pages) {

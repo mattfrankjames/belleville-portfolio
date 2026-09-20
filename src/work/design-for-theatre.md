@@ -10,6 +10,7 @@ cover:
   still: /assets/media/tgwdlm-still.webp
   width: 640
   height: 960
+imageLayout: masonry
 gallery:
   - src: /assets/images/design-for-theatre/design-for-theatre-1.jpg
     alt: "Poster for “Emily Dickinson Enters Into Heaven”: an illustrated fly above the title on a pale lavender cloudy background"

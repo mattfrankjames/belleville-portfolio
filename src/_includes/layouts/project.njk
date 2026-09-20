@@ -22,7 +22,7 @@ scripts:
 		{%- endif %}
 	</header>
 
-	{%- if cover and cover.src %}
+	{%- if cover and cover.src and imageLayout != "row" %}
 	<div class="project-cover wrapper">
 		{#- Likely LCP element: load eagerly at high priority. #}
 		{{ coverImage(cover, cover.alt, "(min-width: 76rem) 72rem, calc(100vw - 2rem)", true) }}
@@ -36,11 +36,18 @@ scripts:
 	</div>
 
 	{%- if gallery.length %}
-	<div class="project-gallery wrapper region">
-		<h2 class="visually-hidden">More images from this project</h2>
+	{#- imageLayout: "row" puts the cover in the grid with the rest;
+	    "masonry" packs images into columns; the default stacks them. #}
+	{%- set layout = imageLayout or "stack" %}
+	{%- set gallerySizes = "(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)" if layout != "stack" else "(min-width: 76rem) 72rem, calc(100vw - 2rem)" %}
+	<div class="project-gallery wrapper region" data-layout="{{ layout }}">
+		<h2 class="visually-hidden">{{ "Project images" if layout == "row" else "More images from this project" }}</h2>
 		<ul role="list">
+			{%- if layout == "row" and cover and cover.src %}
+			<li><img src="{{ cover.src }}" alt="{{ cover.alt }}" sizes="{{ gallerySizes }}" loading="eager" fetchpriority="high"></li>
+			{%- endif %}
 			{%- for image in gallery %}
-			<li><img src="{{ image.src }}" alt="{{ image.alt }}" sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)"></li>
+			<li><img src="{{ image.src }}" alt="{{ image.alt }}" sizes="{{ gallerySizes }}"></li>
 			{%- endfor %}
 		</ul>
 	</div>

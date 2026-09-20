@@ -154,7 +154,7 @@
 
 	/* The image pipeline wraps each <img> in <picture>, which becomes the
 	 * grid item; target both so the card also works with a bare <img>. */
-	& > :is(picture, .card-image) {
+	& > :is(picture, .card-image, .animated-image) {
 		order: -1;
 		margin-block-end: var(--space-xs);
 	}
@@ -401,5 +401,57 @@
 		background-color: var(--color-bg);
 		color: var(--color-text);
 		border-color: var(--color-text);
+	}
+}
+
+/* ---- Project gallery layouts ----
+ * Default: one image per row, full width (set on .project-gallery above).
+ * row: every image side by side, for series meant to be read together.
+ * masonry: packed columns for a set of mixed proportions.
+ */
+.project-gallery[data-layout="row"] ul {
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+	align-items: start;
+}
+
+/* Native masonry ("grid lanes") isn't in any stable browser yet, so the base
+ * is multi-column, which packs the same way. Items read in DOM order down
+ * each column. */
+.project-gallery[data-layout="masonry"] ul {
+	display: block;
+	columns: 1;
+	column-gap: var(--space-l);
+
+	& li {
+		break-inside: avoid;
+		margin-block-end: var(--space-l);
+	}
+}
+
+@media (min-width: 40rem) {
+	.project-gallery[data-layout="masonry"] ul {
+		columns: 2;
+	}
+}
+
+@media (min-width: 64rem) {
+	.project-gallery[data-layout="masonry"] ul {
+		columns: 3;
+	}
+}
+
+/* Progressive enhancement: real grid lanes keep visual order in step with
+ * DOM order, which multi-column cannot. */
+@supports (grid-template-rows: masonry) {
+	.project-gallery[data-layout="masonry"] ul {
+		display: grid;
+		columns: initial;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		grid-template-rows: masonry;
+		gap: var(--space-l);
+
+		& li {
+			margin-block-end: 0;
+		}
 	}
 }
