@@ -5,7 +5,8 @@ scripts:
   - /assets/js/animation.js
 ---
 {%- from "partials/project-card.njk" import projectCard %}
-<section class="intro wrapper region flow">
+<div class="intro-block">
+	<section class="intro wrapper region flow">
 	<h1 class="intro-heading">{{ heading or site.name }}</h1>
 	{%- if content | trim %}
 	<div class="intro-body prose flow">
@@ -20,7 +21,8 @@ scripts:
 			{%- endfor %}
 		</ul>
 	</nav>
-</section>
+	</section>
+</div>
 
 {%- set featuredProjects = collections.projects | onePerSection %}
 {%- if featuredProjects.length %}

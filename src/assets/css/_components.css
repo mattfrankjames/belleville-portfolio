@@ -114,6 +114,21 @@
 }
 
 /* ---- Home intro ---- */
+/* Full-bleed rule closing the intro: the border sits on this wrapper, which
+ * spans the viewport, while the content inside stays in the usual column. */
+.intro-block {
+	border-block-end: 1px solid var(--color-border);
+}
+
+.intro {
+	padding-block-end: var(--space-s);
+}
+
+/* The rule replaces the gap between sections, so restore some space after it. */
+.intro-block + .region {
+	padding-block-start: var(--space-xl);
+}
+
 .intro-heading {
 	max-inline-size: 22ch;
 	/* Same max as --step-5, but a smaller floor: Boldonse is wide, and long
@@ -468,7 +483,7 @@
  * The home page has no site header, so these links carry the navigation.
  */
 .intro-nav {
-	--flow-space: var(--space-l);
+	--flow-space: var(--space-s);
 
 	& ul {
 		display: flex;
