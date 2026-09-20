@@ -159,11 +159,18 @@
 		margin-block-end: var(--space-xs);
 	}
 
-	/* Show whole artwork: posters, spreads and squares all keep their own
-	 * proportions rather than being cropped to a uniform card shape. */
+	/* Show whole artwork — posters, spreads and squares keep their own
+	 * proportions rather than being cropped — but cap the height so a tall
+	 * portrait piece doesn't tower over the rest. `contain` shrinks it to
+	 * fit instead of cropping or distorting it. */
 	& .card-image {
 		inline-size: 100%;
 		block-size: auto;
+		max-block-size: min(58svh, 30rem);
+		object-fit: contain;
+		/* Shrunken artwork lines up with the title rather than floating
+		 * in the middle of the card. */
+		object-position: left center;
 		border-radius: var(--radius);
 	}
 
