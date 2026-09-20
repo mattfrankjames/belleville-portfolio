@@ -312,7 +312,9 @@
 
 .carousel-controls {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
+	justify-content: center;
 	gap: var(--space-2xs);
 	padding-block-start: var(--space-s);
 }
@@ -347,10 +349,6 @@
 
 .carousel-arrow {
 	font-size: var(--step-0);
-}
-
-.carousel-toggle {
-	margin-inline-start: auto;
 }
 
 .carousel-status {

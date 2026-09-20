@@ -1,7 +1,7 @@
 ---
 title: Palette Hunter
-section: promotion
-order: 4
+section: branding
+order: 3
 summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
 # Fill in and uncomment as needed:
 # client:

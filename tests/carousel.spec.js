@@ -42,12 +42,17 @@ test.describe("carousel: enhanced", () => {
 		const next = carousel.getByRole("button", { name: /next project/i });
 		const previous = carousel.getByRole("button", { name: /previous project/i });
 
+		const total = await carousel.locator(".carousel-slide").count();
 		await expect(previous).toHaveAttribute("aria-disabled", "true");
 		await next.click();
-		await expect(status).toHaveText("2 of 2");
-		await expect(next).toHaveAttribute("aria-disabled", "true");
+		await expect(status).toHaveText(`2 of ${total}`);
 		await previous.click();
-		await expect(status).toHaveText("1 of 2");
+		await expect(status).toHaveText(`1 of ${total}`);
+
+		// Stepping to the end disables Next.
+		for (let i = 1; i < total; i++) await next.click();
+		await expect(status).toHaveText(`${total} of ${total}`);
+		await expect(next).toHaveAttribute("aria-disabled", "true");
 	});
 
 	test("auto-play runs once, offers pause, and then stops", async ({ page }) => {
@@ -64,9 +69,10 @@ test.describe("carousel: enhanced", () => {
 		await expect(track).toHaveAttribute("aria-live", "off");
 
 		// It advances on its own...
-		await expect(status).not.toHaveText("1 of 4", { timeout: 15000 });
+		const total = await carousel.locator(".carousel-slide").count();
+		await expect(status).not.toHaveText(`1 of ${total}`, { timeout: 15000 });
 		// ...through to the last slide, then stops and announces politely.
-		await expect(status).toHaveText("4 of 4", { timeout: 25000 });
+		await expect(status).toHaveText(`${total} of ${total}`, { timeout: 30000 });
 		await expect(track).toHaveAttribute("aria-live", "polite");
 		await expect(carousel.getByRole("button", { name: /pause/i })).toBeHidden();
 	});
@@ -101,12 +107,14 @@ test.describe("carousel: enhanced", () => {
 	test("animated cover falls back to a still under reduced motion", async ({ page }) => {
 		await page.goto("/work/");
 		const animated = page.locator('img[src*="tgwdlm"]');
+		await animated.scrollIntoViewIfNeeded(); // it lazy-loads
 		await expect(animated).toHaveJSProperty("complete", true);
 		expect(await animated.evaluate((img) => img.currentSrc)).toContain("tgwdlm-animation.webp");
 
 		await page.emulateMedia({ reducedMotion: "reduce" });
 		await page.reload();
 		const still = page.locator('img[src*="tgwdlm"]');
+		await still.scrollIntoViewIfNeeded();
 		await expect(still).toHaveJSProperty("complete", true);
 		expect(await still.evaluate((img) => img.currentSrc)).toContain("tgwdlm-still.webp");
 	});
