@@ -41,6 +41,9 @@ src/
     css/_fonts.css     @font-face rules for the self-hosted brand fonts
     images/<project>/  Source images, one folder per project
     media/             Files served as-is (e.g. animated WebP)
+    js/carousel.js     Carousel enhancement on the work page
+    js/animation.js    Swaps in animated artwork and adds its pause control
+  _data/sections.json  Work page sections, in display order
   work/*.md            One file per project
   index.md             Home page
   work.md              Work index
@@ -78,7 +81,7 @@ Source artwork lives in iCloud (`…/CloudDocs/Documents/becca-portfolio-site/`)
 
 - PDFs are rasterized one image per page at 2000px on the long side (CoreGraphics via `swiftc`), then saved as JPEG (quality 88, no chroma subsampling) or lossless PNG — whichever is smaller for that image. 2000px is the largest useful master, since the build never generates above 1600px.
 - Files are named in lower case with hyphens and grouped per project: `src/assets/images/<project>/<project>-<n>.jpg`.
-- The theatre animation is an animated WebP in `src/assets/media/`, served as-is because the image pipeline flattens animation. It is rebuilt from the original GIF to play through **once** (`loop: 1`, about 3.8 seconds, ending on the poster frame), so it needs no pause control under WCAG 2.2.2, and `tgwdlm-still.webp` beside it is the frame shown under `prefers-reduced-motion`.
+- The theatre animation is an animated WebP in `src/assets/media/`, served as-is because the image pipeline flattens animation. It loops indefinitely (`loop: 0`, a ~3.8s cycle). Pages ship `tgwdlm-still.webp` instead, and `assets/js/animation.js` swaps in the animation and adds a Pause button — required by WCAG 2.2.2 for motion lasting over five seconds. Under `prefers-reduced-motion` the still stays and the button offers Play, so nothing moves unasked, and nothing moves at all without JavaScript.
 - `assets-source/` holds 2800px archive masters and `manifest.json`. It's git-ignored, and is what to upload if the site ever moves to Cloudinary.
 
 ## How things work
@@ -110,7 +113,7 @@ Target Baseline **widely available** features. Newer features (View Transitions,
 ## Roadmap
 
 1. ~~Structure~~ ✅
-2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, real content
+2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, ~~project titles and summaries~~ ✅ (email, social links and any longer project write-ups still outstanding)
 3. Real copy for each project (files in `src/work/` carry PLACEHOLDER text), then QA and launch: Lighthouse checks, OG image, image build cache
 4. CMS (stretch): Sveltia/Decap or Pages CMS at `/admin`, editing `src/work/*.md`, the page files and `src/_data/site.json`
 5. Cloudinary (optional, later): swap image paths for Cloudinary IDs, add its domain to the CSP, and point the image tests at the new rules
