@@ -152,15 +152,18 @@
 	display: grid;
 	gap: var(--space-2xs);
 
-	& .card-media {
+	/* The image pipeline wraps each <img> in <picture>, which becomes the
+	 * grid item; target both so the card also works with a bare <img>. */
+	& > :is(picture, .card-image) {
 		order: -1;
 		margin-block-end: var(--space-xs);
 	}
 
+	/* Show whole artwork: posters, spreads and squares all keep their own
+	 * proportions rather than being cropped to a uniform card shape. */
 	& .card-image {
 		inline-size: 100%;
-		aspect-ratio: 4 / 3;
-		object-fit: cover;
+		block-size: auto;
 		border-radius: var(--radius);
 	}
 
@@ -223,7 +226,11 @@
 }
 
 .project-cover img {
-	inline-size: 100%;
+	/* Tall posters shouldn't fill more than a screen before any text. */
+	max-block-size: 80svh;
+	inline-size: auto;
+	max-inline-size: 100%;
+	margin-inline: auto;
 	border-radius: var(--radius);
 }
 

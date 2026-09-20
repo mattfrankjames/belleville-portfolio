@@ -6,3 +6,6 @@ _site/
 *.log
 playwright-report/
 test-results/
+
+# Web-ready masters for Cloudinary; not part of the build
+assets-source/web/

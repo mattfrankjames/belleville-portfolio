@@ -39,7 +39,8 @@ src/
     css/main.css       Entry point; imports the _partials in cascade-layer order
     css/_tokens.css    Colors, fonts, type scale, spacing  ← brand lives here
     css/_fonts.css     @font-face rules for the self-hosted brand fonts
-    images/            Source images (processed automatically at build)
+    images/<project>/  Source images, one folder per project
+    media/             Files served as-is (e.g. animated WebP)
   work/*.md            One file per project
   index.md             Home page
   work.md              Work index
@@ -71,6 +72,15 @@ The body is Markdown. Images written as `![alt text](/assets/images/…)` are op
 
 **Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading`, `contactHeading` and `contactText`.
 
+## Assets
+
+Source artwork lives in iCloud (`…/CloudDocs/Documents/becca-portfolio-site/`) and is untouched. Web versions are converted from it:
+
+- PDFs are rasterized one image per page at 2000px on the long side (CoreGraphics via `swiftc`), then saved as JPEG (quality 88, no chroma subsampling) or lossless PNG — whichever is smaller for that image. 2000px is the largest useful master, since the build never generates above 1600px.
+- Files are named in lower case with hyphens and grouped per project: `src/assets/images/<project>/<project>-<n>.jpg`.
+- The animated poster is an animated WebP in `src/assets/media/`, served as-is: the image pipeline handles stills.
+- `assets-source/` holds 2800px archive masters and `manifest.json`. It's git-ignored, and is what to upload if the site ever moves to Cloudinary.
+
 ## How things work
 
 - **CSS**: Lightning CSS bundles `main.css` and its `_*.css` partials into one minified file. It also lowers modern syntax for the targets in `package.json` → `browserslist` (Baseline widely available). Styles use cascade layers: `reset → tokens → base → layout → components → utilities`.
@@ -101,5 +111,6 @@ Target Baseline **widely available** features. Newer features (View Transitions,
 
 1. ~~Structure~~ ✅
 2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, real content
-3. QA and launch: pa11y-ci and Lighthouse checks, OG image, image build cache, Netlify deploy
+3. Real copy for each project (files in `src/work/` carry PLACEHOLDER text), then QA and launch: Lighthouse checks, OG image, image build cache
 4. CMS (stretch): Sveltia/Decap or Pages CMS at `/admin`, editing `src/work/*.md`, the page files and `src/_data/site.json`
+5. Cloudinary (optional, later): swap image paths for Cloudinary IDs, add its domain to the CSP, and point the image tests at the new rules
