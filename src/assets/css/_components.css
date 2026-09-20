@@ -455,3 +455,29 @@
 		}
 	}
 }
+
+/* ---- Home page navigation ----
+ * The home page has no site header, so these links carry the navigation.
+ */
+.intro-nav {
+	--flow-space: var(--space-l);
+
+	& ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2xs) var(--space-l);
+	}
+
+	& a {
+		display: inline-block;
+		min-block-size: 44px;
+		padding-block: var(--space-3xs);
+		color: inherit;
+		font-size: var(--step-1);
+		text-decoration-thickness: 0.08em;
+
+		&:hover {
+			text-decoration-color: var(--color-link-decoration-hover);
+		}
+	}
+}

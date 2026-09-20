@@ -46,6 +46,14 @@ test.describe("page structure & metadata", () => {
 		expect(duplicates).toEqual([]);
 	});
 
+	test("the email link reads as a call to action on the home page and an address elsewhere", async ({ page }) => {
+		await page.goto("/");
+		await expect(page.locator(".email-link")).toHaveText(/Let’s Work Together/i);
+
+		await page.goto("/contact/");
+		await expect(page.locator(".email-link")).toHaveText(/@/);
+	});
+
 	test("404 page is not indexed", async ({ page }) => {
 		await page.goto("/404.html");
 		await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);

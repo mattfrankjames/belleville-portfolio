@@ -85,6 +85,8 @@ A project body is Markdown and may be empty, as they are now: the pages are titl
 
 **Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading` and `contactHeading`; it shows one project per section.
 
+The home page sets `hideHeader: true`, so it has no site header: the navigation sits under the heading instead (`.intro-nav`). Every other page keeps the header. Any layout can do the same by setting that flag.
+
 ## Assets
 
 Source artwork lives in iCloud (`…/CloudDocs/Documents/becca-portfolio-site/`) and is untouched. Web versions are converted from it:

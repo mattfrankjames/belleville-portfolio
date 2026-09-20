@@ -1,5 +1,6 @@
 ---
 layout: base
+hideHeader: true
 scripts:
   - /assets/js/animation.js
 ---
@@ -11,6 +12,14 @@ scripts:
 		{{ content | safe }}
 	</div>
 	{%- endif %}
+	{#- With no site header on this page, this is the page's navigation. #}
+	<nav class="intro-nav" aria-label="Main">
+		<ul role="list">
+			{%- for item in site.nav %}
+			<li><a href="{{ item.url }}">{{ item.label }}</a></li>
+			{%- endfor %}
+		</ul>
+	</nav>
 </section>
 
 {%- set featuredProjects = collections.projects | onePerSection %}

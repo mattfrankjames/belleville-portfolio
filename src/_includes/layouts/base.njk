@@ -15,7 +15,9 @@
 </head>
 <body>
 	<a class="skip-link" href="#content">Skip to content</a>
+	{%- if not hideHeader %}
 	{% include "partials/header.njk" %}
+	{%- endif %}
 	<main id="content" tabindex="-1">
 		{{ content | safe }}
 	</main>
