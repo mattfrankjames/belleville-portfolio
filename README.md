@@ -59,21 +59,31 @@ Everything a non-developer would edit is Markdown with front matter or JSON. Tha
 
 ```yaml
 title: Project name
-summary: One sentence; used on cards, as the page lede, and as the meta description
-client: Client name        # optional
-year: 2026                 # optional
-role: Lead designer        # optional
-services: [Branding, Web]  # optional
+section: branding          # an id from src/_data/sections.json
+order: 1                   # position within that section, lower first
+summary: One sentence; used on cards, as the page intro, and as the meta description
 cover:
   src: /assets/images/project/cover.jpg
   alt: Describe what the image shows   # required for accessibility
-featured: true             # show on the home page
-order: 1                   # lower comes first
+imageLayout: row           # optional; see below
+gallery:                   # optional; every further image, in order
+  - src: /assets/images/project/second.jpg
+    alt: Describe what this image shows
 ```
 
-The body is Markdown. Images written as `![alt text](/assets/images/…)` are optimized automatically.
+`imageLayout` controls how the project page arranges its images:
 
-**Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading`, `contactHeading` and `contactText`.
+| Value | Layout |
+| --- | --- |
+| *(omitted)* | One image per row, full width, below the cover |
+| `row` | All images side by side, cover included — for a series meant to be read together |
+| `masonry` | Packed columns, three wide on desktop. Multi-column today, upgrading itself to native grid lanes via `@supports` once browsers ship them |
+
+An **animated cover** adds `animated: true`, a `still:` frame and `width`/`height`. It skips the image pipeline (which would flatten it), ships as the still, and `assets/js/animation.js` swaps in the animation and adds a Pause button.
+
+A project body is Markdown and may be empty, as they are now: the pages are title, summary and images. Images written in Markdown as `![alt text](/assets/images/…)` are optimized automatically.
+
+**Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading` and `contactHeading`; it shows one project per section.
 
 ## Assets
 
