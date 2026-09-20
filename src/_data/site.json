@@ -1,10 +1,11 @@
 {
 	"name": "Becca Belleville",
-	"tagline": "Designer and Artist",
-	"description": "Becca Belleville is a designer and artist working in branding, infographics, typography, and promotion.",
+	"tagline": "Designer | Artist | Creative Strategist",
+	"description": "Becca Belleville is a designer, artist and creative strategist working in branding, infographics, typography, and promotion.",
 	"lang": "en",
 	"locale": "en_US",
-	"email": "hello@example.com",
+	"email": "RebeccaBelleville@gmail.com",
+	"emailLabel": "Let’s Work Together",
 	"nav": [
 		{
 			"label": "Work",
@@ -18,11 +19,7 @@
 	"social": [
 		{
 			"label": "LinkedIn",
-			"url": "https://example.com/linkedin"
-		},
-		{
-			"label": "Instagram",
-			"url": "https://example.com/instagram"
+			"url": "https://www.linkedin.com/in/rebecca-b-61b72352/"
 		}
 	]
 }

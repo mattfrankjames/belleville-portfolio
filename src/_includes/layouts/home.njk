@@ -31,5 +31,5 @@ scripts:
 	{%- if contactText %}
 	<p>{{ contactText }}</p>
 	{%- endif %}
-	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.emailLabel or site.email }}</a></p>
 </section>

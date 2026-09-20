@@ -8,7 +8,7 @@ layout: base
 		{{ content | safe }}
 	</div>
 	{%- endif %}
-	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.emailLabel or site.email }}</a></p>
 	{%- if site.social.length %}
 	<h2>Elsewhere</h2>
 	<ul class="social-list" role="list">
