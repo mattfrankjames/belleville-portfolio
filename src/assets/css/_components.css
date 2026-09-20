@@ -122,7 +122,15 @@
 }
 
 .intro-body {
+	/* The two lines read as one block, so they sit closer than default flow. */
+	--flow-space: var(--space-2xs);
 	font-size: var(--step-1);
+
+	/* Typographic italic on the closing line — a style choice, so it's CSS
+	 * rather than <em>, which would announce it as emphasis. */
+	& > p:last-child {
+		font-style: italic;
+	}
 }
 
 /* ---- Prose (Markdown content) ---- */
