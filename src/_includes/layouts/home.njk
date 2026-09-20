@@ -1,17 +1,30 @@
 ---
 layout: base
+hideHeader: true
+scripts:
+  - /assets/js/animation.js
 ---
 {%- from "partials/project-card.njk" import projectCard %}
-<section class="intro wrapper region flow">
+<div class="intro-block">
+	<section class="intro wrapper region flow">
 	<h1 class="intro-heading">{{ heading or site.name }}</h1>
 	{%- if content | trim %}
 	<div class="intro-body prose flow">
 		{{ content | safe }}
 	</div>
 	{%- endif %}
-</section>
+	{#- With no site header on this page, this is the page's navigation. #}
+	<nav class="intro-nav" aria-label="Main">
+		<ul role="list">
+			{%- for item in site.nav %}
+			<li><a href="{{ item.url }}">{{ item.label }}</a></li>
+			{%- endfor %}
+		</ul>
+	</nav>
+	</section>
+</div>
 
-{%- set featuredProjects = collections.projects | featured %}
+{%- set featuredProjects = collections.projects | onePerSection %}
 {%- if featuredProjects.length %}
 <section class="wrapper region flow">
 	<h2>{{ featuredHeading or "Selected work" }}</h2>
@@ -29,5 +42,5 @@ layout: base
 	{%- if contactText %}
 	<p>{{ contactText }}</p>
 	{%- endif %}
-	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+	<p><a class="email-link" href="mailto:{{ site.email }}">{{ site.emailLabel or site.email }}</a></p>
 </section>

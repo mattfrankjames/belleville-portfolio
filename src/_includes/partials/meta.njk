@@ -1,4 +1,4 @@
-{%- set pageTitle = (title + " | " + site.name) if title and page.url != "/" else (site.name + " | " + site.tagline) -%}
+{%- set pageTitle = (title + " | " + site.name) if title and page.url != "/" else (site.name + " — " + site.tagline) -%}
 {%- set pageDescription = description or summary or site.description -%}
 {%- set canonical = page.url | absoluteUrl(build.url) -%}
 <title>{{ pageTitle }}</title>

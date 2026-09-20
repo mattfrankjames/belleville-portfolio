@@ -1,0 +1,45 @@
+{#-
+	Carousel of project cards for one section of the work page.
+
+	Without JavaScript this is a scroll-snapping row: every slide is present,
+	reachable by scrolling, and each card’s link is in the tab order. The
+	script in /assets/js/carousel.js adds the controls and plays through once.
+
+	ARIA follows the APG carousel pattern: a labelled group with a
+	roledescription, slides labelled "n of m". Controls are rendered hidden
+	and revealed by the script, so they never appear without behaviour.
+
+	Usage: {{ carousel(section, projects) }}
+#}
+{%- from "partials/project-card.njk" import projectCard -%}
+
+{%- macro carousel(section, projects) -%}
+{%- set headingId = "section-" + section.id -%}
+<div class="carousel" data-carousel role="group" aria-roledescription="carousel" aria-labelledby="{{ headingId }}">
+	{#- Plain divs: a slide carries role="group", which list items may not. #}
+	<div class="carousel-track" data-carousel-track>
+		{%- for project in projects %}
+		<div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ projects.length }}">
+			{{ projectCard(project, 3) }}
+		</div>
+		{%- endfor %}
+	</div>
+	{%- if projects.length > 1 %}
+	<div class="carousel-controls" data-carousel-controls hidden>
+		<button class="carousel-button" type="button" data-carousel-prev>
+			<span class="carousel-arrow" aria-hidden="true">&larr;</span>
+			<span class="visually-hidden">Previous project in {{ section.title }}</span>
+		</button>
+		<p class="carousel-status" data-carousel-status>1 of {{ projects.length }}</p>
+		<button class="carousel-button" type="button" data-carousel-next>
+			<span class="carousel-arrow" aria-hidden="true">&rarr;</span>
+			<span class="visually-hidden">Next project in {{ section.title }}</span>
+		</button>
+		<button class="carousel-button carousel-toggle" type="button" data-carousel-toggle hidden>
+			<span data-carousel-toggle-label>Pause</span>
+			<span class="visually-hidden">automatic slideshow of {{ section.title }} projects</span>
+		</button>
+	</div>
+	{%- endif %}
+</div>
+{%- endmacro -%}

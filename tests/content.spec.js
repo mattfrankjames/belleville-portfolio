@@ -46,6 +46,14 @@ test.describe("page structure & metadata", () => {
 		expect(duplicates).toEqual([]);
 	});
 
+	test("the email link reads as a call to action on the home page and an address elsewhere", async ({ page }) => {
+		await page.goto("/");
+		await expect(page.locator(".email-link")).toHaveText(/Let’s Work Together/i);
+
+		await page.goto("/contact/");
+		await expect(page.locator(".email-link")).toHaveText(/@/);
+	});
+
 	test("404 page is not indexed", async ({ page }) => {
 		await page.goto("/404.html");
 		await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
@@ -61,6 +69,28 @@ test.describe("responsive layout", () => {
 				() => document.documentElement.scrollWidth - document.documentElement.clientWidth,
 			);
 			expect(overflow).toBeLessThanOrEqual(0);
+		});
+	}
+});
+
+test.describe("cards", () => {
+	for (const path of ["/", "/work/"]) {
+		test(`${path} shows each card's artwork above its title`, async ({ page }) => {
+			await page.goto(path);
+			const cards = await page.locator(".card").evaluateAll((els) =>
+				els.map((card) => {
+					const title = card.querySelector(".card-title");
+					const media = card.querySelector(".animated-image, picture, img");
+					return {
+						title: title?.textContent?.trim(),
+						imageAbove: media.getBoundingClientRect().top < title.getBoundingClientRect().top,
+					};
+				}),
+			);
+			expect(cards.length).toBeGreaterThan(0);
+			for (const card of cards) {
+				expect(card.imageAbove, `artwork should sit above the title: ${card.title}`).toBe(true);
+			}
 		});
 	}
 });

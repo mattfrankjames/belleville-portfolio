@@ -1,7 +1,10 @@
 ---
 layout: base
+scripts:
+  - /assets/js/carousel.js
+  - /assets/js/animation.js
 ---
-{%- from "partials/project-card.njk" import projectCard %}
+{%- from "partials/carousel.njk" import carousel %}
 <div class="wrapper region flow">
 	{% include "partials/page-header.njk" %}
 	{%- if content | trim %}
@@ -9,9 +12,14 @@ layout: base
 		{{ content | safe }}
 	</div>
 	{%- endif %}
-	<ul class="card-grid" role="list">
-		{%- for project in collections.projects %}
-		<li>{{ projectCard(project, 2) }}</li>
-		{%- endfor %}
-	</ul>
 </div>
+
+{%- for section in sections %}
+{%- set sectionProjects = collections.projects | bySection(section.id) %}
+{%- if sectionProjects.length %}
+<section class="work-section wrapper region flow">
+	<h2 id="section-{{ section.id }}">{{ section.title }}</h2>
+	{{ carousel(section, sectionProjects) }}
+</section>
+{%- endif %}
+{%- endfor %}

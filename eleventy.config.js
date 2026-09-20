@@ -1,4 +1,5 @@
 import path from "node:path";
+import { readFileSync } from "node:fs";
 import browserslist from "browserslist";
 import { bundle, browserslistToTargets } from "lightningcss";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
@@ -56,6 +57,7 @@ export default function (eleventyConfig) {
 	 * ------------------------------------------------------------- */
 	// Animated media is served as-is; the image pipeline is for stills.
 	eleventyConfig.addPassthroughCopy("src/assets/media");
+	eleventyConfig.addPassthroughCopy("src/assets/js");
 
 	// Brand fonts from npm (Fontsource): Latin + Latin Extended subsets only.
 	eleventyConfig.addPassthroughCopy({
@@ -67,20 +69,35 @@ export default function (eleventyConfig) {
 	/* ---------------------------------------------------------------
 	 * Collections & filters
 	 * ------------------------------------------------------------- */
-	// Projects are sorted by `order` (lowest first), then newest first.
+	// Projects are ordered by their section (see src/_data/sections.json),
+	// then by `order` within the section. This drives the work page, the
+	// previous/next links and the sitemap.
+	const sectionOrder = JSON.parse(
+		readFileSync(new URL("./src/_data/sections.json", import.meta.url), "utf8"),
+	).map((section) => section.id);
+
 	eleventyConfig.addCollection("projects", (collectionApi) =>
-		collectionApi
-			.getFilteredByGlob("src/work/*.md")
-			.sort(
-				(a, b) =>
-					(a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
-					b.date - a.date,
-			),
+		collectionApi.getFilteredByGlob("src/work/*.md").sort(
+			(a, b) =>
+				sectionOrder.indexOf(a.data.section) - sectionOrder.indexOf(b.data.section) ||
+				(a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
+				b.date - a.date,
+		),
 	);
 
-	eleventyConfig.addFilter("featured", (items = []) =>
-		items.filter((item) => item.data.featured),
+	eleventyConfig.addFilter("bySection", (items = [], section) =>
+		items.filter((item) => item.data.section === section),
 	);
+
+	// One project per section for the home page.
+	eleventyConfig.addFilter("onePerSection", (items = []) => {
+		const seen = new Set();
+		return items.filter((item) => {
+			if (seen.has(item.data.section)) return false;
+			seen.add(item.data.section);
+			return true;
+		});
+	});
 
 	eleventyConfig.addFilter("absoluteUrl", (url, base) =>
 		new URL(url, base).href,

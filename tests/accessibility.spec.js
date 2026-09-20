@@ -51,9 +51,26 @@ test.describe("keyboard", () => {
 });
 
 test.describe("navigation state", () => {
-	test("home link is current on the home page", async ({ page }) => {
+	test("the home page carries its navigation in the intro, with no site header", async ({ page }) => {
 		await page.goto("/");
-		await expect(page.locator(".site-name")).toHaveAttribute("aria-current", "page");
+		await expect(page.locator(".site-header")).toHaveCount(0);
+
+		const nav = page.getByRole("navigation", { name: "Main" });
+		await expect(nav).toBeVisible();
+		for (const label of ["Work", "Contact"]) {
+			await expect(nav.getByRole("link", { name: label })).toBeVisible();
+		}
+		// It sits below the heading and the line under it.
+		const headingBottom = await page.locator("h1").evaluate((el) => el.getBoundingClientRect().bottom);
+		const navTop = await nav.evaluate((el) => el.getBoundingClientRect().top);
+		expect(navTop).toBeGreaterThan(headingBottom);
+	});
+
+	test("every other page keeps the site header", async ({ page }) => {
+		for (const path of ["/work/", "/contact/", "/404.html"]) {
+			await page.goto(path);
+			await expect(page.locator(".site-header")).toBeVisible();
+		}
 	});
 
 	test("Work is the current page on /work/", async ({ page }) => {

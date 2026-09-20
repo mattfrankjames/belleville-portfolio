@@ -1,6 +1,6 @@
 ---
 layout: work
 title: Work
-summary: Placeholder summary of the work shown here.
+summary: Branding, infographics, typography, and promotion.
 permalink: /work/
 ---

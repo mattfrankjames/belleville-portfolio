@@ -1,27 +1,9 @@
 ---
 title: Palette Hunter
-summary: PLACEHOLDER — one sentence about this project, shown on cards and as the page intro.
-# Fill in and uncomment as needed:
-# client:
-# year:
-# role:
-# services:
-#   - Service one
+section: branding
+order: 3
+summary: "UI design concept for a social media app for visual designers."
 cover:
   src: /assets/images/palette-hunter-poster/palette-hunter-poster.jpg
   alt: "App promotion poster reading “Hunting for the perfect palette?” with hands holding a phone above a row of app screens"
-featured: false
-order: 6
 ---
-
-## The challenge
-
-PLACEHOLDER — the brief, the audience, and what needed to change.
-
-## The approach
-
-PLACEHOLDER — the process, key decisions, and how the work took shape.
-
-## The outcome
-
-PLACEHOLDER — the result, and any response or impact.

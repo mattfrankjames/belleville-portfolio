@@ -41,6 +41,9 @@ src/
     css/_fonts.css     @font-face rules for the self-hosted brand fonts
     images/<project>/  Source images, one folder per project
     media/             Files served as-is (e.g. animated WebP)
+    js/carousel.js     Carousel enhancement on the work page
+    js/animation.js    Swaps in animated artwork and adds its pause control
+  _data/sections.json  Work page sections, in display order
   work/*.md            One file per project
   index.md             Home page
   work.md              Work index
@@ -56,21 +59,33 @@ Everything a non-developer would edit is Markdown with front matter or JSON. Tha
 
 ```yaml
 title: Project name
-summary: One sentence; used on cards, as the page lede, and as the meta description
-client: Client name        # optional
-year: 2026                 # optional
-role: Lead designer        # optional
-services: [Branding, Web]  # optional
+section: branding          # an id from src/_data/sections.json
+order: 1                   # position within that section, lower first
+summary: One sentence; used on cards, as the page intro, and as the meta description
 cover:
   src: /assets/images/project/cover.jpg
   alt: Describe what the image shows   # required for accessibility
-featured: true             # show on the home page
-order: 1                   # lower comes first
+imageLayout: row           # optional; see below
+gallery:                   # optional; every further image, in order
+  - src: /assets/images/project/second.jpg
+    alt: Describe what this image shows
 ```
 
-The body is Markdown. Images written as `![alt text](/assets/images/…)` are optimized automatically.
+`imageLayout` controls how the project page arranges its images:
 
-**Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading`, `contactHeading` and `contactText`.
+| Value | Layout |
+| --- | --- |
+| *(omitted)* | One image per row, full width, below the cover |
+| `row` | All images side by side, cover included — for a series meant to be read together |
+| `masonry` | Packed columns, three wide on desktop. Multi-column today, upgrading itself to native grid lanes via `@supports` once browsers ship them |
+
+An **animated cover** adds `animated: true`, a `still:` frame and `width`/`height`. It skips the image pipeline (which would flatten it), ships as the still, and `assets/js/animation.js` swaps in the animation and adds a Pause button.
+
+A project body is Markdown and may be empty, as they are now: the pages are title, summary and images. Images written in Markdown as `![alt text](/assets/images/…)` are optimized automatically.
+
+**Pages** use `title`, `summary`, and a Markdown body. The home page also takes `heading`, `featuredHeading` and `contactHeading`; it shows one project per section.
+
+The home page sets `hideHeader: true`, so it has no site header: the navigation sits under the heading instead (`.intro-nav`). Every other page keeps the header. Any layout can do the same by setting that flag.
 
 ## Assets
 
@@ -78,7 +93,7 @@ Source artwork lives in iCloud (`…/CloudDocs/Documents/becca-portfolio-site/`)
 
 - PDFs are rasterized one image per page at 2000px on the long side (CoreGraphics via `swiftc`), then saved as JPEG (quality 88, no chroma subsampling) or lossless PNG — whichever is smaller for that image. 2000px is the largest useful master, since the build never generates above 1600px.
 - Files are named in lower case with hyphens and grouped per project: `src/assets/images/<project>/<project>-<n>.jpg`.
-- The animated poster is an animated WebP in `src/assets/media/`, served as-is: the image pipeline handles stills.
+- The theatre animation is an animated WebP in `src/assets/media/`, served as-is because the image pipeline flattens animation. It loops indefinitely (`loop: 0`, a ~3.8s cycle). Pages ship `tgwdlm-still.webp` instead, and `assets/js/animation.js` swaps in the animation and adds a Pause button — required by WCAG 2.2.2 for motion lasting over five seconds. Under `prefers-reduced-motion` the still stays and the button offers Play, so nothing moves unasked, and nothing moves at all without JavaScript.
 - `assets-source/` holds 2800px archive masters and `manifest.json`. It's git-ignored, and is what to upload if the site ever moves to Cloudinary.
 
 ## How things work
@@ -110,7 +125,7 @@ Target Baseline **widely available** features. Newer features (View Transitions,
 ## Roadmap
 
 1. ~~Structure~~ ✅
-2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, real content
+2. Brand: ~~colors~~ ✅, ~~fonts~~ ✅, ~~project titles and summaries~~ ✅ (email, social links and any longer project write-ups still outstanding)
 3. Real copy for each project (files in `src/work/` carry PLACEHOLDER text), then QA and launch: Lighthouse checks, OG image, image build cache
 4. CMS (stretch): Sveltia/Decap or Pages CMS at `/admin`, editing `src/work/*.md`, the page files and `src/_data/site.json`
 5. Cloudinary (optional, later): swap image paths for Cloudinary IDs, add its domain to the CSP, and point the image tests at the new rules

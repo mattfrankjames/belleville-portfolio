@@ -114,6 +114,21 @@
 }
 
 /* ---- Home intro ---- */
+/* Full-bleed rule closing the intro: the border sits on this wrapper, which
+ * spans the viewport, while the content inside stays in the usual column. */
+.intro-block {
+	border-block-end: 1px solid var(--color-border);
+}
+
+.intro {
+	padding-block-end: var(--space-s);
+}
+
+/* The rule replaces the gap between sections, so restore some space after it. */
+.intro-block + .region {
+	padding-block-start: var(--space-xl);
+}
+
 .intro-heading {
 	max-inline-size: 22ch;
 	/* Same max as --step-5, but a smaller floor: Boldonse is wide, and long
@@ -122,7 +137,15 @@
 }
 
 .intro-body {
+	/* The two lines read as one block, so they sit closer than default flow. */
+	--flow-space: var(--space-2xs);
 	font-size: var(--step-1);
+
+	/* Typographic italic on the closing line — a style choice, so it's CSS
+	 * rather than <em>, which would announce it as emphasis. */
+	& > p:last-child {
+		font-style: italic;
+	}
 }
 
 /* ---- Prose (Markdown content) ---- */
@@ -154,16 +177,20 @@
 
 	/* The image pipeline wraps each <img> in <picture>, which becomes the
 	 * grid item; target both so the card also works with a bare <img>. */
-	& > :is(picture, .card-image) {
+	& > :is(picture, .card-image, .animated-image) {
 		order: -1;
 		margin-block-end: var(--space-xs);
 	}
 
-	/* Show whole artwork: posters, spreads and squares all keep their own
-	 * proportions rather than being cropped to a uniform card shape. */
+	/* Artwork fills the card's width. Height is capped so a tall portrait
+	 * piece doesn't tower over the rest; anything taller than the cap is
+	 * cropped from the bottom, keeping the top of a poster visible. */
 	& .card-image {
 		inline-size: 100%;
 		block-size: auto;
+		max-block-size: min(58svh, 30rem);
+		object-fit: cover;
+		object-position: center top;
 		border-radius: var(--radius);
 	}
 
@@ -279,4 +306,201 @@
 	font-size: var(--step-3);
 	font-weight: var(--weight-strong);
 	overflow-wrap: anywhere;
+}
+
+/* ---- Work sections ---- */
+.work-section {
+	--flow-space: var(--space-m);
+}
+
+/* ---- Carousel ----
+ * Base: a scroll-snapping row that works with no JavaScript.
+ * The controls are revealed by /assets/js/carousel.js.
+ */
+.carousel-track {
+	display: flex;
+	gap: var(--space-l);
+	margin: 0;
+	padding: 0;
+	padding-block-end: var(--space-xs);
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-color: var(--color-text) transparent;
+	scrollbar-width: thin;
+}
+
+.carousel-slide {
+	/* Always narrower than the track, so the next slide peeks and there is
+	 * something to scroll even in a section with only two projects. */
+	flex: 0 0 clamp(17rem, 58%, 40rem);
+	scroll-snap-align: start;
+}
+
+.carousel-controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2xs);
+	padding-block-start: var(--space-s);
+}
+
+.carousel-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-3xs);
+	min-inline-size: 44px;
+	min-block-size: 44px;
+	padding: var(--space-3xs) var(--space-xs);
+	border: 2px solid var(--color-text);
+	border-radius: 999px;
+	background-color: transparent;
+	color: var(--color-text);
+	font-size: var(--step--1);
+	line-height: 1;
+	cursor: pointer;
+
+	/* Hover keeps the text-safe pair (7:1); Tangerine is decoration only. */
+	&:hover:not([aria-disabled="true"]) {
+		background-color: var(--color-text);
+		color: var(--color-bg);
+	}
+
+	&[aria-disabled="true"] {
+		opacity: 0.45;
+		cursor: default;
+	}
+}
+
+.carousel-arrow {
+	font-size: var(--step-0);
+}
+
+.carousel-status {
+	min-inline-size: 5ch;
+	color: var(--color-text-muted);
+	font-size: var(--step--1);
+	font-variant-numeric: tabular-nums;
+	text-align: center;
+}
+
+/* ---- Project gallery ---- */
+.project-gallery ul {
+	display: grid;
+	gap: var(--space-l);
+}
+
+.project-gallery img {
+	inline-size: 100%;
+	block-size: auto;
+	border-radius: var(--radius);
+}
+
+/* ---- Animated artwork ---- */
+.animated-image {
+	position: relative;
+	display: grid;
+}
+
+.animation-toggle {
+	position: absolute;
+	inset-block-end: var(--space-2xs);
+	inset-inline-start: var(--space-2xs);
+	/* Above the card link's stretched ::after, so it stays clickable. */
+	z-index: 1;
+	min-block-size: 44px;
+	padding: var(--space-3xs) var(--space-xs);
+	border: 2px solid var(--color-bg);
+	border-radius: 999px;
+	background-color: var(--color-text);
+	color: var(--color-bg);
+	font-size: var(--step--1);
+	line-height: 1;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		border-color: var(--color-text);
+	}
+}
+
+/* ---- Project gallery layouts ----
+ * Default: one image per row, full width (set on .project-gallery above).
+ * row: every image side by side, for series meant to be read together.
+ * masonry: packed columns for a set of mixed proportions.
+ */
+.project-gallery[data-layout="row"] ul {
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+	align-items: start;
+}
+
+/* Native masonry ("grid lanes") isn't in any stable browser yet, so the base
+ * is multi-column, which packs the same way. Items read in DOM order down
+ * each column. */
+.project-gallery[data-layout="masonry"] ul {
+	display: block;
+	columns: 1;
+	column-gap: var(--space-l);
+
+	& li {
+		break-inside: avoid;
+		margin-block-end: var(--space-l);
+	}
+}
+
+@media (min-width: 40rem) {
+	.project-gallery[data-layout="masonry"] ul {
+		columns: 2;
+	}
+}
+
+@media (min-width: 64rem) {
+	.project-gallery[data-layout="masonry"] ul {
+		columns: 3;
+	}
+}
+
+/* Progressive enhancement: real grid lanes keep visual order in step with
+ * DOM order, which multi-column cannot. */
+@supports (grid-template-rows: masonry) {
+	.project-gallery[data-layout="masonry"] ul {
+		display: grid;
+		columns: initial;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		grid-template-rows: masonry;
+		gap: var(--space-l);
+
+		& li {
+			margin-block-end: 0;
+		}
+	}
+}
+
+/* ---- Home page navigation ----
+ * The home page has no site header, so these links carry the navigation.
+ */
+.intro-nav {
+	--flow-space: var(--space-s);
+
+	& ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2xs) var(--space-l);
+	}
+
+	& a {
+		display: inline-block;
+		min-block-size: 44px;
+		padding-block: var(--space-3xs);
+		color: inherit;
+		font-size: var(--step-1);
+		text-decoration-thickness: 0.08em;
+
+		&:hover {
+			text-decoration-color: var(--color-link-decoration-hover);
+		}
+	}
 }
