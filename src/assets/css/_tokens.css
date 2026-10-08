@@ -8,31 +8,31 @@
  */
 :root {
 	/* Page supports both schemes; follows the visitor's OS setting.
-	 * Light = Deep Mocha on Almond Silk; dark = the same pair inverted.
+	 * Light = Prussian Blue on Platinum; dark = the same pair inverted.
 	 * To ship light-only, change this to `light` (and the meta tag in base.njk). */
 	color-scheme: light dark;
 
 	/* ---- Tier 1: brand palette (OKLCH, converted from the brand hex values) ---- */
-	--palette-almond-silk: oklch(87.55% 0.0366 43.81); /* #ECCFC3 */
-	--palette-deep-mocha: oklch(37.23% 0.0435 44.87); /* #54392D */
+	--palette-platinum: oklch(92.89% 0.0034 145.55); /* #E6E8E6 */
+	--palette-prussian-blue: oklch(30.35% 0.0779 245.92); /* #003153 */
 	--palette-muted-teal: oklch(67.62% 0.0475 142.03); /* #879F84 */
 	--palette-burnt-tangerine: oklch(61.99% 0.2142 30.64); /* #EB3C27 */
 
 	/*
-	 * Contrast (WCAG 2.2) — the only text-safe pair is Mocha + Almond (7.14:1).
-	 *   Mocha / Teal 3.66 → large text or UI only
-	 *   Almond / Tangerine 2.74, Mocha / Tangerine 2.60, Almond / Teal 1.95 → decorative only
-	 * So Tangerine and Teal are used for accents that carry no information
-	 * on their own (hover underlines, dividers, list markers, arrows).
+	 * Contrast (WCAG 2.2) — the text-safe pair is Blue + Platinum (10.9:1).
+	 *   Blue / Teal 4.68 and Blue / Tangerine 3.33 → UI and large text only
+	 *   Platinum / Tangerine 3.27 → UI only; Platinum / Teal 2.33 → decorative
+	 * Tangerine and Teal stay accents that carry no information on their own
+	 * (hover underlines, dividers, list markers, arrows).
 	 */
 
 	/* ---- Tier 2: semantic colors ---- */
-	--color-bg: light-dark(var(--palette-almond-silk), var(--palette-deep-mocha));
-	--color-text: light-dark(var(--palette-deep-mocha), var(--palette-almond-silk));
-	/* 5.19:1 (light) and 5.09:1 (dark) against --color-bg */
+	--color-bg: light-dark(var(--palette-platinum), var(--palette-prussian-blue));
+	--color-text: light-dark(var(--palette-prussian-blue), var(--palette-platinum));
+	/* 5.75:1 (light) and 5.87:1 (dark) against --color-bg */
 	--color-text-muted: light-dark(
-		color-mix(in oklab, var(--palette-deep-mocha) 85%, var(--palette-almond-silk)),
-		color-mix(in oklab, var(--palette-almond-silk) 80%, var(--palette-deep-mocha))
+		color-mix(in oklab, var(--palette-prussian-blue) 75%, var(--palette-platinum)),
+		color-mix(in oklab, var(--palette-platinum) 70%, var(--palette-prussian-blue))
 	);
 	--color-border: var(--palette-muted-teal); /* decorative dividers only */
 	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
