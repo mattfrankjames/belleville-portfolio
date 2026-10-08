@@ -60,6 +60,22 @@ test.describe("page structure & metadata", () => {
 	});
 });
 
+test("the site is dark whatever the OS colour scheme says", async ({ page }) => {
+	const seen = [];
+	for (const colorScheme of ["light", "dark"]) {
+		await page.emulateMedia({ colorScheme });
+		await page.goto("/");
+		seen.push(
+			await page.evaluate(() => {
+				const root = getComputedStyle(document.documentElement);
+				return { scheme: root.colorScheme, background: root.backgroundColor, text: root.color };
+			}),
+		);
+	}
+	expect(seen[0]).toEqual(seen[1]);
+	expect(seen[0].scheme).toBe("dark");
+});
+
 test.describe("responsive layout", () => {
 	for (const path of pages) {
 		test(`${path} has no horizontal scroll at 320px`, async ({ page }) => {

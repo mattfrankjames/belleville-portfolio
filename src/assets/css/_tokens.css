@@ -7,10 +7,12 @@
  * only ever reference Tier 2.
  */
 :root {
-	/* Page supports both schemes; follows the visitor's OS setting.
-	 * Light = Prussian Blue on Platinum; dark = the same pair inverted.
-	 * To ship light-only, change this to `light` (and the meta tag in base.njk). */
-	color-scheme: light dark;
+	/* The site is dark only: Platinum on Prussian Blue, whatever the
+	 * visitor's OS setting. Declaring it keeps browser UI — scrollbars,
+	 * form controls, the canvas behind the page — in step.
+	 * To offer both schemes again, set `light dark` here, put the pairs
+	 * back in light-dark(), and restore the two theme-color tags. */
+	color-scheme: dark;
 
 	/* ---- Tier 1: brand palette (OKLCH, converted from the brand hex values) ---- */
 	--palette-platinum: oklch(92.89% 0.0034 145.55); /* #E6E8E6 */
@@ -19,21 +21,17 @@
 	--palette-burnt-tangerine: oklch(61.99% 0.2142 30.64); /* #EB3C27 */
 
 	/*
-	 * Contrast (WCAG 2.2) — the text-safe pair is Blue + Platinum (10.9:1).
-	 *   Blue / Teal 4.68 and Blue / Tangerine 3.33 → UI and large text only
-	 *   Platinum / Tangerine 3.27 → UI only; Platinum / Teal 2.33 → decorative
+	 * Contrast (WCAG 2.2) — Platinum on Blue is 10.9:1.
+	 *   Teal on Blue 4.68, Tangerine on Blue 3.33 → UI and large text only
 	 * Tangerine and Teal stay accents that carry no information on their own
 	 * (hover underlines, dividers, list markers, arrows).
 	 */
 
 	/* ---- Tier 2: semantic colors ---- */
-	--color-bg: light-dark(var(--palette-platinum), var(--palette-prussian-blue));
-	--color-text: light-dark(var(--palette-prussian-blue), var(--palette-platinum));
-	/* 5.75:1 (light) and 5.87:1 (dark) against --color-bg */
-	--color-text-muted: light-dark(
-		color-mix(in oklab, var(--palette-prussian-blue) 75%, var(--palette-platinum)),
-		color-mix(in oklab, var(--palette-platinum) 70%, var(--palette-prussian-blue))
-	);
+	--color-bg: var(--palette-prussian-blue);
+	--color-text: var(--palette-platinum);
+	/* 5.87:1 against --color-bg */
+	--color-text-muted: color-mix(in oklab, var(--palette-platinum) 70%, var(--palette-prussian-blue));
 	--color-border: var(--palette-muted-teal); /* decorative dividers only */
 	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
 	/* Links are identified by underline, so they can share the text color. */
