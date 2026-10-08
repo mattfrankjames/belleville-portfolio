@@ -362,7 +362,7 @@
 	line-height: 1;
 	cursor: pointer;
 
-	/* Hover keeps the text-safe pair (10.9:1); Tangerine is decoration only. */
+	/* Hover keeps the text-safe pair (15:1); Tangerine is decoration only. */
 	&:hover:not([aria-disabled="true"]) {
 		background-color: var(--color-text);
 		color: var(--color-bg);

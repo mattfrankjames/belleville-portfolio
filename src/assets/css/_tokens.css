@@ -7,7 +7,7 @@
  * only ever reference Tier 2.
  */
 :root {
-	/* The site is dark only: Platinum on Prussian Blue, whatever the
+	/* The site is dark only: Platinum on Dark Green, whatever the
 	 * visitor's OS setting. Declaring it keeps browser UI — scrollbars,
 	 * form controls, the canvas behind the page — in step.
 	 * To offer both schemes again, set `light dark` here, put the pairs
@@ -16,22 +16,23 @@
 
 	/* ---- Tier 1: brand palette (OKLCH, converted from the brand hex values) ---- */
 	--palette-platinum: oklch(92.89% 0.0034 145.55); /* #E6E8E6 */
-	--palette-prussian-blue: oklch(30.35% 0.0779 245.92); /* #003153 */
+	--palette-dark-green: oklch(18.62% 0.0369 165.73); /* #01180F */
 	--palette-muted-teal: oklch(67.62% 0.0475 142.03); /* #879F84 */
 	--palette-burnt-tangerine: oklch(61.99% 0.2142 30.64); /* #EB3C27 */
 
 	/*
-	 * Contrast (WCAG 2.2) — Platinum on Blue is 10.9:1.
-	 *   Teal on Blue 4.68, Tangerine on Blue 3.33 → UI and large text only
+	 * Contrast (WCAG 2.2) — Platinum on Green is 15:1.
+	 *   Teal on Green 6.43 and Tangerine on Green 4.57 would pass for text
+	 *   too, but both stay decorative so nothing depends on colour alone.
 	 * Tangerine and Teal stay accents that carry no information on their own
 	 * (hover underlines, dividers, list markers, arrows).
 	 */
 
 	/* ---- Tier 2: semantic colors ---- */
-	--color-bg: var(--palette-prussian-blue);
+	--color-bg: var(--palette-dark-green);
 	--color-text: var(--palette-platinum);
-	/* 5.87:1 against --color-bg */
-	--color-text-muted: color-mix(in oklab, var(--palette-platinum) 70%, var(--palette-prussian-blue));
+	/* 5.35:1 against --color-bg */
+	--color-text-muted: color-mix(in oklab, var(--palette-platinum) 60%, var(--palette-dark-green));
 	--color-border: var(--palette-muted-teal); /* decorative dividers only */
 	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
 	/* Links are identified by underline, so they can share the text color. */
