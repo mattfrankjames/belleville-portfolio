@@ -91,7 +91,7 @@ main:focus {
 	outline: none;
 }
 
-/* Inverted brand pair keeps selected text at 7:1 */
+/* Inverted brand pair keeps selected text at 15:1 */
 ::selection {
 	background-color: var(--color-text);
 	color: var(--color-bg);
