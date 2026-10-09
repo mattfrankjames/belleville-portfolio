@@ -302,7 +302,10 @@
 }
 
 .email-link {
-	font-size: var(--step-3);
+	/* Shrinks on small screens so the address stays on one line: it is
+	 * about 14.2em wide, so it fits the content column at width / 14.5.
+	 * Wrapping anywhere is only a last resort on very narrow screens. */
+	font-size: min(var(--step-3), calc((100vw - 2 * var(--gutter)) / 14.5));
 	font-weight: var(--weight-strong);
 	overflow-wrap: anywhere;
 }

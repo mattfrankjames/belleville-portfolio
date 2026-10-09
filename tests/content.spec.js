@@ -137,3 +137,16 @@ test("internal links and assets resolve", async ({ page, request }) => {
 	}
 	expect(broken).toEqual([]);
 });
+
+test.describe("email link", () => {
+	for (const width of [320, 390]) {
+		test(`stays on one line at ${width}px`, async ({ page }) => {
+			await page.setViewportSize({ width, height: 800 });
+			for (const path of ["/", "/contact/"]) {
+				await page.goto(path);
+				const lines = await page.locator(".email-link").evaluate((a) => a.getClientRects().length);
+				expect(lines, `${path} at ${width}px`).toBe(1);
+			}
+		});
+	}
+});
