@@ -1,7 +1,7 @@
 ---
 title: Laumeier Anniversary Invitation
 section: promotion
-order: 3
+order: 4
 summary: "Multi-layered laser cut paper invitation design and art piece for sculpture park anniversary show."
 cover:
   src: /assets/images/laumeier/laumeier-begin-again-poster.png

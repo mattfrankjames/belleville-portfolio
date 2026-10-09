@@ -18,3 +18,9 @@
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# The Meramec Theatre project was split into one page per production.
+[[redirects]]
+  from = "/work/design-for-theatre/"
+  to = "/work/emily-dickinson-locked-and-loaded/"
+  status = 301

@@ -24,7 +24,7 @@ scripts:
 	</section>
 </div>
 
-{%- set featuredProjects = collections.projects | onePerSection %}
+{%- set featuredProjects = collections.projects | featured %}
 {%- if featuredProjects.length %}
 <section class="wrapper region flow">
 	<h2>{{ featuredHeading or "Selected work" }}</h2>
