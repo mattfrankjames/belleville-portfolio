@@ -2,6 +2,7 @@
 title: Poverty & Child Neglect
 section: infographics
 order: 1
+featured: 3
 summary: "Infographic of Missouri child neglect data including hand drawn illustrations and data interpretation."
 cover:
   src: /assets/images/neglect/neglect-1.jpg

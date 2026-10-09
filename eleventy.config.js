@@ -89,15 +89,12 @@ export default function (eleventyConfig) {
 		items.filter((item) => item.data.section === section),
 	);
 
-	// One project per section for the home page.
-	eleventyConfig.addFilter("onePerSection", (items = []) => {
-		const seen = new Set();
-		return items.filter((item) => {
-			if (seen.has(item.data.section)) return false;
-			seen.add(item.data.section);
-			return true;
-		});
-	});
+	// Projects with a `featured` number, lowest first, for the home page.
+	eleventyConfig.addFilter("featured", (items = []) =>
+		items
+			.filter((item) => item.data.featured != null)
+			.sort((a, b) => a.data.featured - b.data.featured),
+	);
 
 	eleventyConfig.addFilter("absoluteUrl", (url, base) =>
 		new URL(url, base).href,

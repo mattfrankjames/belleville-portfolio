@@ -1,7 +1,8 @@
 ---
 title: Meramec Contemporary Gallery
 section: promotion
-order: 2
+order: 3
+featured: 2
 summary: "Rebranding presentation for local contemporary art gallery including brand kit, signage, and merchandise."
 cover:
   src: /assets/images/mcg-82/mcg-82-1.jpg
