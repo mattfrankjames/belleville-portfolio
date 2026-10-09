@@ -342,6 +342,10 @@
 	padding-block: var(--space-3xs);
 	color: inherit;
 	font-size: var(--step-1);
+	/* Set the underline explicitly, as the site nav does, so hover changes
+	 * one declared colour rather than switching from an inherited one. */
+	text-decoration-color: currentColor;
+	text-decoration-thickness: 0.12em;
 
 	&:hover {
 		text-decoration-color: var(--color-link-decoration-hover);
@@ -485,7 +489,8 @@
 		padding-block: var(--space-3xs);
 		color: inherit;
 		font-size: var(--step-1);
-		text-decoration-thickness: 0.08em;
+		text-decoration-color: currentColor;
+		text-decoration-thickness: 0.12em;
 
 		&:hover {
 			text-decoration-color: var(--color-link-decoration-hover);
