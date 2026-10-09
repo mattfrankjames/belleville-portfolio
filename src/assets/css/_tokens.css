@@ -26,8 +26,9 @@
 	 *   Teal on Green 6.43, Gold on Green 7.09 and Tangerine on Green 4.57
 	 *   would pass for text too, but all stay decorative so nothing depends
 	 *   on colour alone.
-	 * Tangerine, Gold and Teal stay accents that carry no information on
-	 * their own (list markers and arrows, hover underlines, dividers).
+	 * Gold and Teal stay accents that carry no information on their own
+	 * (hover underlines, list markers, arrows, dividers). Tangerine is
+	 * currently unused.
 	 */
 
 	/* ---- Tier 2: semantic colors ---- */
@@ -36,11 +37,11 @@
 	/* 5.35:1 against --color-bg */
 	--color-text-muted: color-mix(in oklab, var(--palette-platinum) 60%, var(--palette-dark-green));
 	--color-border: var(--palette-muted-teal); /* decorative dividers only */
-	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
+	--color-accent: var(--palette-old-gold); /* decorative only — never text */
 	/* Links are identified by underline, so they can share the text color. */
 	--color-link: var(--color-text);
-	--color-link-decoration-hover: var(--palette-old-gold);
-	/* Focus rings need 3:1 against the background; Tangerine doesn't reach it. */
+	--color-link-decoration-hover: var(--color-accent);
+	/* Focus rings use the text colour: clearer than any accent. */
 	--color-focus: var(--color-text);
 
 	/* ---- Typography ---- */
