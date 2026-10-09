@@ -46,19 +46,13 @@ test.describe("work page", () => {
 		expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe("auto");
 	});
 
-	test("artwork keeps its natural proportions", async ({ page }) => {
+	test("covers share one shape, so rows line up", async ({ page }) => {
 		await page.goto("/work/");
 		const ratios = await page.locator(".work-grid .card-image").evaluateAll((imgs) =>
-			imgs.map((img) => ({
-				src: img.currentSrc || img.src,
-				rendered: img.getBoundingClientRect().height / img.getBoundingClientRect().width,
-				natural: Number(img.getAttribute("height")) / Number(img.getAttribute("width")),
-			})),
+			imgs.map((img) => img.getBoundingClientRect().height / img.getBoundingClientRect().width),
 		);
-		expect(ratios.length).toBeGreaterThan(0);
-		for (const { src, rendered, natural } of ratios) {
-			expect(rendered, `cropped: ${src}`).toBeCloseTo(natural, 1);
-		}
+		expect(ratios.length).toBeGreaterThan(1);
+		for (const ratio of ratios) expect(ratio).toBeCloseTo(5 / 4, 2);
 	});
 
 	test("animation plays, can be paused, and needs no JavaScript to be safe", async ({ page }) => {

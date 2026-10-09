@@ -313,6 +313,20 @@
 	--flow-space: var(--space-m);
 }
 
+/* The page header and its section links sit close together, with less
+ * than a full region of space before the first section. */
+.work-intro {
+	padding-block-end: var(--space-l);
+
+	& .page-header {
+		margin-block-end: 0;
+	}
+
+	& > .section-nav {
+		margin-block-start: var(--space-s);
+	}
+}
+
 /* Jump links to each section of the work page. */
 .section-nav ul {
 	display: flex;
@@ -337,8 +351,16 @@
 	scroll-margin-block-start: var(--space-m);
 }
 
-/* Cards in the work grid keep their artwork's natural proportions. */
+/* Project cards in even rows: every cover is cropped to the same portrait
+ * shape, keeping the top of each piece. Project pages show them uncropped. */
+.work-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: var(--space-xl) var(--space-l);
+}
+
 .work-grid .card .card-image {
+	aspect-ratio: 4 / 5;
 	max-block-size: none;
 }
 
@@ -386,8 +408,7 @@
 /* ---- Project gallery layouts ----
  * Default: one image per row, full width (set on .project-gallery above).
  * row: every image side by side, for series meant to be read together.
- * masonry: packed columns for a set of mixed proportions. The work page's
- * project grid (.work-grid) shares it.
+ * masonry: packed columns for a set of mixed proportions.
  */
 .project-gallery[data-layout="row"] ul {
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
@@ -397,30 +418,25 @@
 /* Native masonry ("grid lanes") isn't in any stable browser yet, so the base
  * is multi-column, which packs the same way. Items read in DOM order down
  * each column. */
-:is(.project-gallery[data-layout="masonry"] ul, .work-grid) {
-	--masonry-gap: var(--space-l);
+.project-gallery[data-layout="masonry"] ul {
 	display: block;
 	columns: 1;
 	column-gap: var(--space-l);
 
-	& > li {
+	& li {
 		break-inside: avoid;
-		margin-block-end: var(--masonry-gap);
+		margin-block-end: var(--space-l);
 	}
 }
 
-.work-grid {
-	--masonry-gap: var(--space-xl);
-}
-
 @media (min-width: 40rem) {
-	:is(.project-gallery[data-layout="masonry"] ul, .work-grid) {
+	.project-gallery[data-layout="masonry"] ul {
 		columns: 2;
 	}
 }
 
 @media (min-width: 64rem) {
-	:is(.project-gallery[data-layout="masonry"] ul, .work-grid) {
+	.project-gallery[data-layout="masonry"] ul {
 		columns: 3;
 	}
 }
@@ -428,14 +444,14 @@
 /* Progressive enhancement: real grid lanes keep visual order in step with
  * DOM order, which multi-column cannot. */
 @supports (grid-template-rows: masonry) {
-	:is(.project-gallery[data-layout="masonry"] ul, .work-grid) {
+	.project-gallery[data-layout="masonry"] ul {
 		display: grid;
 		columns: initial;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
 		grid-template-rows: masonry;
-		gap: var(--masonry-gap) var(--space-l);
+		gap: var(--space-l);
 
-		& > li {
+		& li {
 			margin-block-end: 0;
 		}
 	}

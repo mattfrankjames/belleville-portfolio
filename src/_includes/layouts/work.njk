@@ -4,7 +4,7 @@ scripts:
   - /assets/js/animation.js
 ---
 {%- from "partials/project-card.njk" import projectCard %}
-<div class="wrapper region flow">
+<div class="work-intro wrapper region flow">
 	{% include "partials/page-header.njk" %}
 	{%- if content | trim %}
 	<div class="prose flow">
@@ -29,7 +29,7 @@ scripts:
 	<h2 id="section-{{ section.id }}">{{ section.title }}</h2>
 	<ul class="work-grid" role="list">
 		{%- for project in sectionProjects %}
-		<li>{{ projectCard(project, 3, "(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)") }}</li>
+		<li>{{ projectCard(project, 3, "(min-width: 76rem) 22rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)") }}</li>
 		{%- endfor %}
 	</ul>
 </section>
