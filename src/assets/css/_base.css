@@ -14,6 +14,14 @@ html {
 	font-size-adjust: from-font;
 }
 
+/* In-page links (e.g. the work page's section links) glide rather than jump,
+ * unless the visitor has asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
 body {
 	font-size: var(--step-0);
 }
@@ -70,9 +78,10 @@ a {
 	text-decoration-thickness: 0.08em;
 	text-underline-offset: 0.18em;
 
+	/* Hover changes only the underline's colour: changing its thickness, or
+	 * adding it, can nudge the text as the browser redraws it. */
 	&:hover {
 		text-decoration-color: var(--color-link-decoration-hover);
-		text-decoration-thickness: 0.14em;
 	}
 }
 

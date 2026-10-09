@@ -6,4 +6,5 @@ summary: "Custom cookbook honoring the memory of a loved one featuring their rec
 cover:
   src: /assets/images/cookbook-mockup/cookbook-mockup.jpg
   alt: "Cookbook mockup showing the cover and open spreads of “Recipes for a Family” with photographs and handwritten recipes"
+  focus: left
 ---

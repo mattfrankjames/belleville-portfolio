@@ -1,25 +1,37 @@
 ---
 layout: base
 scripts:
-  - /assets/js/carousel.js
   - /assets/js/animation.js
 ---
-{%- from "partials/carousel.njk" import carousel %}
-<div class="wrapper region flow">
+{%- from "partials/project-card.njk" import projectCard %}
+<div class="work-intro wrapper region flow">
 	{% include "partials/page-header.njk" %}
 	{%- if content | trim %}
 	<div class="prose flow">
 		{{ content | safe }}
 	</div>
 	{%- endif %}
+	<nav class="section-nav" aria-label="Sections">
+		<ul role="list">
+			{%- for section in sections %}
+			{%- if collections.projects | bySection(section.id) | length %}
+			<li><a href="#section-{{ section.id }}">{{ section.title }}</a></li>
+			{%- endif %}
+			{%- endfor %}
+		</ul>
+	</nav>
 </div>
 
 {%- for section in sections %}
 {%- set sectionProjects = collections.projects | bySection(section.id) %}
 {%- if sectionProjects.length %}
-<section class="work-section wrapper region flow">
+<section class="work-section wrapper region flow" aria-labelledby="section-{{ section.id }}">
 	<h2 id="section-{{ section.id }}">{{ section.title }}</h2>
-	{{ carousel(section, sectionProjects) }}
+	<ul class="work-grid" role="list">
+		{%- for project in sectionProjects %}
+		<li>{{ projectCard(project, 3, "(min-width: 76rem) 22rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)") }}</li>
+		{%- endfor %}
+	</ul>
 </section>
 {%- endif %}
 {%- endfor %}

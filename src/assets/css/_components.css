@@ -57,16 +57,17 @@
 	min-block-size: 24px;
 	padding-block: var(--space-3xs);
 	color: inherit;
-	text-decoration: none;
-
-	&:hover,
-	&[aria-current] {
-		text-decoration: underline;
-		text-decoration-thickness: 0.12em;
-	}
+	/* The underline is always there, transparent until needed, so showing it
+	 * never moves the text. */
+	text-decoration-color: transparent;
+	text-decoration-thickness: 0.12em;
 
 	/* Current page keeps a text-colored underline (a state indicator must
-	 * meet 3:1); hover adds the decorative Tangerine. */
+	 * meet 3:1); hover adds the decorative gold. */
+	&[aria-current] {
+		text-decoration-color: currentColor;
+	}
+
 	&:hover {
 		text-decoration-color: var(--color-link-decoration-hover);
 	}
@@ -199,7 +200,8 @@
 
 		& a {
 			color: inherit;
-			text-decoration: none;
+			/* Always underlined, transparent until hover, so the text never moves. */
+			text-decoration-color: transparent;
 
 			/* Stretch the link over the whole card */
 			&::after {
@@ -211,9 +213,7 @@
 	}
 
 	&:hover .card-title a {
-		text-decoration: underline;
 		text-decoration-color: var(--color-link-decoration-hover);
-		text-decoration-thickness: 0.08em;
 	}
 
 	& .card-summary {
@@ -287,10 +287,9 @@
 
 	& a {
 		font-size: var(--step-1);
-		text-decoration: none;
+		text-decoration-color: transparent;
 
 		&:hover {
-			text-decoration: underline;
 			text-decoration-color: var(--color-link-decoration-hover);
 		}
 	}
@@ -303,7 +302,10 @@
 }
 
 .email-link {
-	font-size: var(--step-3);
+	/* Shrinks on small screens so the address stays on one line: it is
+	 * about 14.2em wide, so it fits the content column at width / 14.5.
+	 * Wrapping anywhere is only a last resort on very narrow screens. */
+	font-size: min(var(--step-3), calc((100vw - 2 * var(--gutter)) / 14.5));
 	font-weight: var(--weight-strong);
 	overflow-wrap: anywhere;
 }
@@ -313,77 +315,67 @@
 	--flow-space: var(--space-m);
 }
 
-/* ---- Carousel ----
- * Base: a scroll-snapping row that works with no JavaScript.
- * The controls are revealed by /assets/js/carousel.js.
- */
-.carousel-track {
-	display: flex;
-	gap: var(--space-l);
-	margin: 0;
-	padding: 0;
-	padding-block-end: var(--space-xs);
-	overflow-x: auto;
-	overscroll-behavior-inline: contain;
-	scroll-snap-type: x mandatory;
-	scrollbar-color: var(--color-text) transparent;
-	scrollbar-width: thin;
+/* The page header and its section links sit close together, with less
+ * than a full region of space before the first section. */
+.work-intro {
+	padding-block-end: var(--space-l);
+
+	& .page-header {
+		margin-block-end: 0;
+	}
+
+	& > .section-nav {
+		margin-block-start: var(--space-s);
+	}
 }
 
-.carousel-slide {
-	/* Always narrower than the track, so the next slide peeks and there is
-	 * something to scroll even in a section with only two projects. */
-	flex: 0 0 clamp(17rem, 58%, 40rem);
-	scroll-snap-align: start;
-}
-
-.carousel-controls {
+/* Jump links to each section of the work page. */
+.section-nav ul {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	gap: var(--space-2xs);
-	padding-block-start: var(--space-s);
+	gap: var(--space-2xs) var(--space-l);
 }
 
-.carousel-button {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--space-3xs);
-	min-inline-size: 44px;
+.section-nav a {
+	display: inline-block;
 	min-block-size: 44px;
-	padding: var(--space-3xs) var(--space-xs);
-	border: 2px solid var(--color-text);
-	border-radius: 999px;
-	background-color: transparent;
-	color: var(--color-text);
-	font-size: var(--step--1);
-	line-height: 1;
-	cursor: pointer;
+	padding-block: var(--space-3xs);
+	color: inherit;
+	font-size: var(--step-1);
+	/* Set the underline explicitly, as the site nav does, so hover changes
+	 * one declared colour rather than switching from an inherited one. */
+	text-decoration-color: currentColor;
+	text-decoration-thickness: 0.12em;
 
-	/* Hover keeps the text-safe pair (15:1); Tangerine is decoration only. */
-	&:hover:not([aria-disabled="true"]) {
-		background-color: var(--color-text);
-		color: var(--color-bg);
-	}
-
-	&[aria-disabled="true"] {
-		opacity: 0.45;
-		cursor: default;
+	&:hover {
+		text-decoration-color: var(--color-link-decoration-hover);
 	}
 }
 
-.carousel-arrow {
-	font-size: var(--step-0);
+/* Section headings are scroll targets: keep a little air above them. */
+.work-section > h2 {
+	scroll-margin-block-start: var(--space-m);
 }
 
-.carousel-status {
-	min-inline-size: 5ch;
-	color: var(--color-text-muted);
-	font-size: var(--step--1);
-	font-variant-numeric: tabular-nums;
-	text-align: center;
+/* Project cards in even rows: every cover is cropped to the same portrait
+ * shape, keeping the top of each piece. Project pages show them uncropped. */
+.work-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: var(--space-xl) var(--space-l);
+}
+
+.work-grid .card .card-image {
+	aspect-ratio: 4 / 5;
+	max-block-size: none;
+}
+
+/* A project's cover.focus picks the part of its artwork a crop keeps. */
+.card-image {
+	&[data-focus="center"] { object-position: center; }
+	&[data-focus="bottom"] { object-position: center bottom; }
+	&[data-focus="left"] { object-position: left center; }
+	&[data-focus="right"] { object-position: right center; }
 }
 
 /* ---- Project gallery ---- */
@@ -497,7 +489,8 @@
 		padding-block: var(--space-3xs);
 		color: inherit;
 		font-size: var(--step-1);
-		text-decoration-thickness: 0.08em;
+		text-decoration-color: currentColor;
+		text-decoration-thickness: 0.12em;
 
 		&:hover {
 			text-decoration-color: var(--color-link-decoration-hover);
