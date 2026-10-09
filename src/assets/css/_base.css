@@ -78,9 +78,10 @@ a {
 	text-decoration-thickness: 0.08em;
 	text-underline-offset: 0.18em;
 
+	/* Hover changes only the underline's colour: changing its thickness, or
+	 * adding it, can nudge the text as the browser redraws it. */
 	&:hover {
 		text-decoration-color: var(--color-link-decoration-hover);
-		text-decoration-thickness: 0.14em;
 	}
 }
 
