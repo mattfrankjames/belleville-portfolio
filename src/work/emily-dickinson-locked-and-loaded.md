@@ -6,6 +6,7 @@ summary: "Awarded branding concepts for Meramec Theatre Season 2026–2027 — b
 cover:
   src: /assets/images/design-for-theatre/design-for-theatre-1.jpg
   alt: "Poster for “Emily Dickinson Enters Into Heaven”: an illustrated fly above the title on a pale lavender cloudy background"
+  focus: bottom
 imageLayout: masonry
 gallery:
   - src: /assets/images/design-for-theatre/design-for-theatre-2.jpg

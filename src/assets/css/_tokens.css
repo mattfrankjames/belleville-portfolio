@@ -19,13 +19,15 @@
 	--palette-dark-green: oklch(18.62% 0.0369 165.73); /* #01180F */
 	--palette-muted-teal: oklch(67.62% 0.0475 142.03); /* #879F84 */
 	--palette-burnt-tangerine: oklch(61.99% 0.2142 30.64); /* #EB3C27 */
+	--palette-old-gold: oklch(70.65% 0.1444 96.29); /* #BB9F06 */
 
 	/*
 	 * Contrast (WCAG 2.2) — Platinum on Green is 15:1.
-	 *   Teal on Green 6.43 and Tangerine on Green 4.57 would pass for text
-	 *   too, but both stay decorative so nothing depends on colour alone.
-	 * Tangerine and Teal stay accents that carry no information on their own
-	 * (hover underlines, dividers, list markers, arrows).
+	 *   Teal on Green 6.43, Gold on Green 7.09 and Tangerine on Green 4.57
+	 *   would pass for text too, but all stay decorative so nothing depends
+	 *   on colour alone.
+	 * Tangerine, Gold and Teal stay accents that carry no information on
+	 * their own (list markers and arrows, hover underlines, dividers).
 	 */
 
 	/* ---- Tier 2: semantic colors ---- */
@@ -37,7 +39,7 @@
 	--color-accent: var(--palette-burnt-tangerine); /* decorative only — never text */
 	/* Links are identified by underline, so they can share the text color. */
 	--color-link: var(--color-text);
-	--color-link-decoration-hover: var(--color-accent);
+	--color-link-decoration-hover: var(--palette-old-gold);
 	/* Focus rings need 3:1 against the background; Tangerine doesn't reach it. */
 	--color-focus: var(--color-text);
 

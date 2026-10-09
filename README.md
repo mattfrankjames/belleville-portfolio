@@ -65,6 +65,7 @@ summary: One sentence; used on cards, as the page intro, and as the meta descrip
 cover:
   src: /assets/images/project/cover.jpg
   alt: Describe what the image shows   # required for accessibility
+  focus: bottom            # optional; part kept when a card crops it (top, bottom, left, right, center)
 imageLayout: row           # optional; see below
 gallery:                   # optional; every further image, in order
   - src: /assets/images/project/second.jpg

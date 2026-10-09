@@ -364,6 +364,14 @@
 	max-block-size: none;
 }
 
+/* A project's cover.focus picks the part of its artwork a crop keeps. */
+.card-image {
+	&[data-focus="center"] { object-position: center; }
+	&[data-focus="bottom"] { object-position: center bottom; }
+	&[data-focus="left"] { object-position: left center; }
+	&[data-focus="right"] { object-position: right center; }
+}
+
 /* ---- Project gallery ---- */
 .project-gallery ul {
 	display: grid;
