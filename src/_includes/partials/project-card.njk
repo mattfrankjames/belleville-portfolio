@@ -4,17 +4,17 @@
 	The cover is decorative here (alt="") because the title already
 	names the link; the project page shows every image with real alt text.
 
-	Usage: {{ projectCard(project, headingLevel) }}
+	Usage: {{ projectCard(project, headingLevel, sizes) }}
 #}
 {%- from "partials/cover-image.njk" import coverImage -%}
-{%- macro projectCard(project, headingLevel = 2) -%}
+{%- macro projectCard(project, headingLevel = 2, sizes = "(min-width: 76rem) 35rem, (min-width: 62rem) 50vw, calc(100vw - 2rem)") -%}
 <article class="card">
 	<h{{ headingLevel }} class="card-title"><a href="{{ project.url }}">{{ project.data.title }}</a></h{{ headingLevel }}>
 	{%- if project.data.summary %}
 	<p class="card-summary">{{ project.data.summary }}</p>
 	{%- endif %}
 	{%- if project.data.cover and project.data.cover.src %}
-	{{ coverImage(project.data.cover, "", "(min-width: 76rem) 35rem, (min-width: 62rem) 50vw, calc(100vw - 2rem)") }}
+	{{ coverImage(project.data.cover, "", sizes) }}
 	{%- endif %}
 </article>
 {%- endmacro -%}

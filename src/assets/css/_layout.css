@@ -4,7 +4,7 @@
 body {
 	display: grid;
 	/* minmax(0, 1fr): without it the column sizes to the widest content,
-	 * so a scrolling carousel would stretch the whole page. */
+	 * so a wide scrolling element would stretch the whole page. */
 	grid-template-columns: minmax(0, 1fr);
 	grid-template-rows: auto 1fr auto;
 	min-block-size: 100dvh;

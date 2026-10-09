@@ -41,7 +41,6 @@ src/
     css/_fonts.css     @font-face rules for the self-hosted brand fonts
     images/<project>/  Source images, one folder per project
     media/             Files served as-is (e.g. animated WebP)
-    js/carousel.js     Carousel enhancement on the work page
     js/animation.js    Swaps in animated artwork and adds its pause control
   _data/sections.json  Work page sections, in display order
   work/*.md            One file per project
